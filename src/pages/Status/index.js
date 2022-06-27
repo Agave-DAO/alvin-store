@@ -119,7 +119,7 @@ export default function Body({ totalSupply, ready, balanceSOCKS }) {
                     {d.NFTTransactionHash && (
                       <EtherscanLink
                         style={{ marginBottom: '.5rem' }}
-                        href={`https://etherscan.io/tx/${d.NFTTransactionHash}`}
+                        href={`https://blockscout.com/xdai/mainnet/tx/${d.NFTTransactionHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
