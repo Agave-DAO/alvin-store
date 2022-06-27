@@ -137,13 +137,13 @@ export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, num
   }, [suggestEl])
 
   const canSign =
-    formState[name] &&
-    formState[line1] &&
-    formState[city] &&
-    formState[state] &&
-    formState[zip] &&
-    formState[country] &&
-    formState[email]
+    !!formState[name] &&
+    !!formState[line1] &&
+    !!formState[city] &&
+    !!formState[state] &&
+    !!formState[zip] &&
+    !!formState[country] &&
+    !!formState[email]
 
   function onRecaptcha(value) {
     if (value) {
@@ -164,7 +164,7 @@ export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, num
         autoComplete="name"
       />
       <Compressed>
-        <Suggest
+        {/* <Suggest
           required
           myRef={suggestEl}
           inputY={inputY}
@@ -175,6 +175,17 @@ export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, num
           onChange={handleChange}
           placeholder={nameMap[line1]}
           autoComplete="off"
+        /> */}
+
+        <input
+          style={{ marginRight: '8px' }}
+          type="text"
+          name={line1}
+          value={formState[line1]}
+          onChange={handleChange}
+          placeholder={nameMap[line1]}
+          autoComplete="off"
+          required
         />
 
         <input
