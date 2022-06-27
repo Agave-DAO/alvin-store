@@ -86,7 +86,7 @@ export default function Redeem({
   })
 
   function link(hash) {
-    return `https://etherscan.io/tx/${hash}`
+    return `https://blockscout.com/xdai/mainnet/tx/${hash}`
   }
 
   function renderContent() {

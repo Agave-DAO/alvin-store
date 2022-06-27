@@ -95,7 +95,7 @@ export default function BuyAndSell({
   const [validationError, setValidationError] = useState()
 
   function link(hash) {
-    return `https://etherscan.io/tx/${hash}`
+    return `https://blockscout.com/xdai/mainnet/tx/${hash}`
   }
 
   function getText(account, buying, errorMessage, ready, pending, hash) {
