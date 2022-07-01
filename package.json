@@ -4,8 +4,11 @@
   "private": true,
   "dependencies": {
     "@1hive/honeyswap-sdk": "^2.0.0",
+    "@ethersproject/contracts": "^5.6.2",
+    "@ethersproject/providers": "^5.6.8",
+    "@ethersproject/solidity": "^5.6.1",
     "@walletconnect/web3-subprovider": "^1.0.0-beta.25",
-    "ethers": "^4.0.27",
+    "ethers": "^5",
     "http-proxy-middleware": "^0.19.1",
     "qrcode.react": "^0.9.3",
     "react": "^16.8.6",
