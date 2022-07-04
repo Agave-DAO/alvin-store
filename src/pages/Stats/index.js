@@ -64,7 +64,7 @@ const Footer = styled.p`
 
   a {
     text-decoration: none;
-    color: #fe6dde;
+    color: #00B59C;
     margin-bottom: 1rem;
   }
 `
