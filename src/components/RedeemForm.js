@@ -321,7 +321,7 @@ const FormFrame = styled.form`
     border-radius: 4px;
   }
   input:required {
-    box-shadow: inset 0 0 0 1px rgba(254, 109, 222, 0.5);
+    box-shadow: inset 0 0 0 1px #36CFA2;
   }
   input:valid {
     border: nne;
@@ -349,9 +349,9 @@ const ButtonFrame = styled.button`
   cursor: pointer;
   pointer-events: ${props => (props.disabled ? 'none' : 'auto')};
 
-  background: linear-gradient(97.28deg, #fe6dde 2.08%, #ff9dea 106.51%);
+  background: gradient(272.02deg, #019D8B 1.22%, #36CFA2 99.28%);
   box-shadow: 0px 4px 20px rgba(239, 162, 250, 0.7);
-  background: ${props => (props.disabled ? '#f1f2f6' : 'linear-gradient(97.28deg, #fe6dde 2.08%, #ff9dea 106.51%)')};
+  background: ${props => (props.disabled ? '#f1f2f6' : 'linear-gradient(272.02deg, #019D8B 1.22%, #36CFA2 99.28%);')};
   box-shadow: ${props => (props.disabled ? 'none' : '0px 4px 20px rgba(239, 162, 250, 0.7)')};
   color: ${props => (props.disabled ? '#aeaeae' : props.theme.white)};
   transform: scale(1);
