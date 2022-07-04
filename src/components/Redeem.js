@@ -229,7 +229,7 @@ export default function Redeem({
           <Back disabled={!!pending}>
             {pending ? (
               <EtherscanLink href={link(transactionHash)} target="_blank" rel="noopener noreferrer">
-                View on Etherscan.
+                View on Blockscout.
               </EtherscanLink>
             ) : (
               <span
@@ -260,7 +260,7 @@ export default function Redeem({
           </CheckoutPrompt>
           <div style={{ margin: '16px 0 16px 16px' }}>
             <EtherscanLink href={link(lastTransactionHash)} target="_blank" rel="noopener noreferrer">
-              View on Etherscan.
+              View on Blockscout.
             </EtherscanLink>
           </div>
         </>
