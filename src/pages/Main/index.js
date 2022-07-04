@@ -514,7 +514,7 @@ export default function Main({ stats, status }) {
       .getGasPrice()
       .then(gasPrice => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
-    const estimatedGasLimit = await tokenContractSOCKS.estimate.transfer("0x000000000000000000000000000000000000dead", parsedAmount)
+    const estimatedGasLimit = await tokenContractSOCKS.estimateGas.transfer("0x000000000000000000000000000000000000dead", parsedAmount)
     // TODO: When testing is done switch this address to 0x0000...
     return tokenContractSOCKS.transfer("0x29FFeBCa51ecD940cb37EF91ff83cD739553b93e", parsedAmount, {
       gasLimit: 90003, // TODO: calculate this properly
