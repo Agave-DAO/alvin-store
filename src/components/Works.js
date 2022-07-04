@@ -51,10 +51,6 @@ export default function Works({ closeCheckout }) {
       <Desc>
         You can sell the token back at any time. To get a <i>real</i> plushie, redeem a $ALVIN token
       </Desc>
-      <Title>How it's priced:</Title>
-      <Desc>
-        How its priced
-      </Desc>
     </WorksFrame>
   )
 }
