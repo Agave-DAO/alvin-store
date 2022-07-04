@@ -41,7 +41,7 @@ const nameMap = {
   [email]: 'Email',
   [address]: 'Ethereum Address',
   [timestamp]: 'Time',
-  [numberBurned]: 'SOCKS Redeemed'
+  [numberBurned]: 'ALVIN Redeemed'
 }
 
 // the order for fields that will be submitted
