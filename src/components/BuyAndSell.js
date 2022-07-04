@@ -7,7 +7,7 @@ import SelectToken from './SelectToken'
 import IncrementToken from './IncrementToken'
 import { useAppContext } from '../context'
 import { ERROR_CODES, amountFormatter, TRADE_TYPES } from '../utils'
-import test from './Gallery/test.png'
+import test from './Gallery/AlvinPlushie_HD.gif'
 // import { ethers } from 'ethers'
 
 export function useCount() {

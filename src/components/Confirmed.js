@@ -5,9 +5,8 @@ import { amountFormatter, TRADE_TYPES } from '../utils'
 import Button from './Button'
 
 import close from './Gallery/close.svg'
-import sent from './Gallery/sent.png'
+import sent from './Gallery/AlvinPlushie_HD.gif'
 import { useAppContext } from '../context'
-
 const ConfirmedFrame = styled.div`
   width: 100%;
   /* padding: 2rem; */

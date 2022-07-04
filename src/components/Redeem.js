@@ -9,9 +9,9 @@ import RedeemForm from './RedeemForm'
 import { amountFormatter } from '../utils'
 
 import IncrementToken from './IncrementToken'
-import test from './Gallery/test.png'
+import test from './Gallery/AlvinPlushie_HD.gif'
 import nfc from './Gallery/nfc.png'
-import sent from './Gallery/sent.png'
+import sent from './Gallery/AlvinPlushie_HD.gif'
 
 import close from './Gallery/close.svg'
 import closeDark from './Gallery/close_dark.svg'
