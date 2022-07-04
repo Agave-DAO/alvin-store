@@ -4,8 +4,6 @@ import styled from 'styled-components'
 import { useWeb3Context } from 'web3-react'
 import ReCAPTCHA from 'react-google-recaptcha'
 
-import Suggest from './Suggest'
-
 // we need to capture the full address into netlify...
 // https://www.netlify.com/blog/2017/07/20/how-to-integrate-netlifys-form-handling-in-a-react-app/
 function encode(data) {
@@ -259,6 +257,16 @@ export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, num
 
           const header = `PLEASE VERIFY YOUR ADDRESS.\nYour data will never be shared publicly.`
           const formDataMessage = nameOrder.map(o => `${nameMap[o]}: ${formState[o]}`).join('\n')
+
+          const today = new Date();
+          const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+          const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+          const dateTime = date+' '+time;
+
+          window.localStorage.setItem("dateTime",  dateTime)
+          window.localStorage.setItem("address", account)
+          nameOrder.forEach(o => window.localStorage.setItem(o, formState[o]))
+          
           const autoMessage = `${nameMap[address]}: ${account}\n${nameMap[timestamp]}: ${timestampToSign}\n${nameMap[numberBurned]}: ${actualNumberBurned}`
 
           signer.signMessage(`${header}\n\n${formDataMessage}\n${autoMessage}`).then(returnedSignature => {

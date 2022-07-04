@@ -19,6 +19,8 @@ import closeDark from './Gallery/close_dark.svg'
 
 import Confetti from 'react-dom-confetti'
 
+import emailjs from '@emailjs/browser';
+
 const config = {
   angle: 90,
   spread: 76,
@@ -200,6 +202,19 @@ export default function Redeem({
               burn(numberBurned.toString())
                 .then(response => {
                   setTransactionHash(response.hash)
+
+                  window.localStorage.setItem("numberBurned", numberBurned)
+                  window.localStorage.setItem("tx", response.hash)
+                  window.localStorage.setItem("txLink", link(response.hash))
+                  
+                  emailjs.send(process.env.REACT_APP_EMAILJS_SERVICE_ID, process.env.REACT_APP_EMAILJS_TEMPLATE_ID, window.localStorage, process.env.REACT_APP_EMAILJS_PUBLIC_KEY)
+                    .then(function(response) {
+                      console.log('SUCCESS!', response.status, response.text);
+                    }, function(error) {
+                      console.log('FAILED...', error);
+                    });
+
+                  window.localStorage.clear()
                 })
                 .catch(error => {
                   console.error(error)
@@ -214,7 +229,7 @@ export default function Redeem({
           <Back disabled={!!pending}>
             {pending ? (
               <EtherscanLink href={link(transactionHash)} target="_blank" rel="noopener noreferrer">
-                View on Etherscan.
+                View on Blockscout.
               </EtherscanLink>
             ) : (
               <span
@@ -243,12 +258,9 @@ export default function Redeem({
           <CheckoutPrompt>
             Estimated shipping time 2-3 weeks. <br /> Shipping time will vary by region.
           </CheckoutPrompt>
-          <CheckoutPrompt>
-            Your shipping details can be viewed <Link to="/status">here</Link>.
-          </CheckoutPrompt>
           <div style={{ margin: '16px 0 16px 16px' }}>
             <EtherscanLink href={link(lastTransactionHash)} target="_blank" rel="noopener noreferrer">
-              View on Etherscan.
+              View on Blockscout.
             </EtherscanLink>
           </div>
         </>
