@@ -258,9 +258,6 @@ export default function Redeem({
           <CheckoutPrompt>
             Estimated shipping time 2-3 weeks. <br /> Shipping time will vary by region.
           </CheckoutPrompt>
-          <CheckoutPrompt>
-            Your shipping details can be viewed <Link to="/status">here</Link>.
-          </CheckoutPrompt>
           <div style={{ margin: '16px 0 16px 16px' }}>
             <EtherscanLink href={link(lastTransactionHash)} target="_blank" rel="noopener noreferrer">
               View on Etherscan.
