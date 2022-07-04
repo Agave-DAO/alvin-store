@@ -12,6 +12,7 @@ import IncrementToken from './IncrementToken'
 import test from './Gallery/AlvinPlushie_HD.gif'
 import nfc from './Gallery/nfc.png'
 import sent from './Gallery/AlvinPlushie_HD.gif'
+import icon from './Gallery/alvin.png'
 
 import close from './Gallery/close.svg'
 import closeDark from './Gallery/close_dark.svg'
@@ -35,9 +36,7 @@ export function Controls({ closeCheckout, theme, type }) {
   return (
     <FrameControls>
       <Unicorn theme={theme}>
-        <span role="img" aria-label="unicorn">
-          🦄
-        </span>{' '}
+      <img aria-label="alvin" role="img" src={icon} style={{height: "16px", marginBottom:"-2px"}}/>{' '}
         Pay{' '}
         <span style={{ color: '#737373' }}>
           {' '}

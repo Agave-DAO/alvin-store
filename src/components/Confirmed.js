@@ -6,6 +6,7 @@ import Button from './Button'
 
 import close from './Gallery/close.svg'
 import sent from './Gallery/AlvinPlushie_HD.gif'
+import icon from './Gallery/alvin.png'
 import { useAppContext } from '../context'
 const ConfirmedFrame = styled.div`
   width: 100%;
@@ -21,9 +22,7 @@ function Controls({ closeCheckout }) {
   return (
     <FrameControls>
       <Unicorn>
-        <span role="img" aria-label="unicorn">
-          🦄
-        </span>{' '}
+        <img aria-label="alvin" role="img" src={icon} style={{height: "16px", marginBottom:"-2px"}}/>{' '}
         Pay
       </Unicorn>
       <Close src={close} onClick={() => closeCheckout()} alt="close" />

@@ -8,6 +8,7 @@ import IncrementToken from './IncrementToken'
 import { useAppContext } from '../context'
 import { ERROR_CODES, amountFormatter, TRADE_TYPES } from '../utils'
 import test from './Gallery/AlvinPlushie_HD.gif'
+import icon from './Gallery/alvin.png'
 // import { ethers } from 'ethers'
 
 export function useCount() {
@@ -204,9 +205,7 @@ export default function BuyAndSell({
       <TopFrame>
         {/* <button onClick={() => fake()}>test</button> */}
         <Unicorn>
-          <span role="img" aria-label="unicorn">
-            🦄
-          </span>{' '}
+          <img aria-label="alvin" role="img" src={icon} style={{height: "16px", marginBottom:"-1px"}}/>{' '}
           Pay
         </Unicorn>
         <ImgStyle src={test} alt="Logo" />

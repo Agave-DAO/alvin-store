@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useAppContext } from '../../context'
 import { Header } from '../Body'
 import { amountFormatter } from '../../utils'
+import icon from '../../components/Gallery/alvin.png'
 
 export default function Body({ totalSupply, reserveSOCKSToken, ready, balanceSOCKS }) {
   const [state] = useAppContext()
@@ -14,9 +15,7 @@ export default function Body({ totalSupply, reserveSOCKSToken, ready, balanceSOC
         <Title>SOCKS Stats</Title>
         <Description>
           <p>
-            <span role="img" aria-label="socks">
-              🧦
-            </span>
+          <img aria-label="alvin" role="img" src={icon} style={{height: "16px", marginBottom:"-2px", marginRight:"1px"}}/>
             Initial SOCKS
           </p>
           <p>500</p>
