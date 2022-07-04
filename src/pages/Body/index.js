@@ -10,6 +10,8 @@ import RedeemButton from '../../components/RedeemButton'
 import Checkout from '../../components/Checkout'
 import { amountFormatter } from '../../utils'
 
+import icon from '../../components/Gallery/alvin.png'
+
 export function Header({ totalSupply, ready, balanceSOCKS, setShowConnect }) {
   const { account, setConnector } = useWeb3Context()
 
@@ -23,10 +25,9 @@ export function Header({ totalSupply, ready, balanceSOCKS, setShowConnect }) {
     <HeaderFrame balanceSOCKS={balanceSOCKS}>
       <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
         <Unicorn>
-          <span role="img" aria-label="unicorn">
-            🦄
-          </span>{' '}
-          Unisocks
+          <img aria-label="alvin" role="img" src={icon} style={{height: "16px", marginBottom:"-2px"}}/>
+          {' '}
+          Alvin
         </Unicorn>
       </Link>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -43,7 +44,7 @@ export function Header({ totalSupply, ready, balanceSOCKS, setShowConnect }) {
         <Account onClick={() => handleAccount()} balanceSOCKS={balanceSOCKS}>
           {account ? (
             balanceSOCKS > 0 ? (
-              <SockCount>{balanceSOCKS && `${amountFormatter(balanceSOCKS, 18, 0)}`} SOCKS</SockCount>
+              <SockCount>{balanceSOCKS && `${amountFormatter(balanceSOCKS, 18, 0)}`} ALVIN</SockCount>
             ) : (
               <SockCount>{account.slice(0, 6)}...</SockCount>
             )
@@ -173,7 +174,7 @@ export default function Body({
       <Content>
         <Card totalSupply={totalSupply} dollarPrice={dollarPrice} reserveSOCKSToken={reserveSOCKSToken} />{' '}
         <Info>
-          <div style={{ marginBottom: '4px' }}>Buy and sell real socks with digital currency.</div>
+          <div style={{ marginBottom: '4px' }}>Buy and sell real plushies with digital currency.</div>
           <div style={{ marginBottom: '4px' }}>
             Delivered on demand.{' '}
             <a

@@ -1,74 +1,97 @@
 [
   {
-    "name": "NewExchange",
+    "type": "constructor",
+    "stateMutability": "nonpayable",
+    "payable": false,
+    "inputs": [{ "type": "address", "name": "_feeToSetter", "internalType": "address" }]
+  },
+  {
+    "type": "event",
+    "name": "PairCreated",
     "inputs": [
-      { "type": "address", "name": "token", "indexed": true },
-      { "type": "address", "name": "exchange", "indexed": true }
+      { "type": "address", "name": "token0", "internalType": "address", "indexed": true },
+      { "type": "address", "name": "token1", "internalType": "address", "indexed": true },
+      { "type": "address", "name": "pair", "internalType": "address", "indexed": false },
+      { "type": "uint256", "name": "", "internalType": "uint256", "indexed": false }
     ],
-    "anonymous": false,
-    "type": "event"
+    "anonymous": false
   },
   {
-    "name": "initializeFactory",
+    "type": "function",
+    "stateMutability": "view",
+    "payable": false,
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "allPairs",
+    "inputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "constant": true
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": false,
+    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "name": "allPairsLength",
+    "inputs": [],
+    "constant": true
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": false,
+    "outputs": [{ "type": "address", "name": "pair", "internalType": "address" }],
+    "name": "createPair",
+    "inputs": [
+      { "type": "address", "name": "tokenA", "internalType": "address" },
+      { "type": "address", "name": "tokenB", "internalType": "address" }
+    ],
+    "constant": false
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": false,
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "feeTo",
+    "inputs": [],
+    "constant": true
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": false,
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "feeToSetter",
+    "inputs": [],
+    "constant": true
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": false,
+    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "name": "getPair",
+    "inputs": [
+      { "type": "address", "name": "", "internalType": "address" },
+      { "type": "address", "name": "", "internalType": "address" }
+    ],
+    "constant": true
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": false,
     "outputs": [],
-    "inputs": [{ "type": "address", "name": "template" }],
-    "constant": false,
-    "payable": false,
-    "type": "function",
-    "gas": 35725
+    "name": "setFeeTo",
+    "inputs": [{ "type": "address", "name": "_feeTo", "internalType": "address" }],
+    "constant": false
   },
   {
-    "name": "createExchange",
-    "outputs": [{ "type": "address", "name": "out" }],
-    "inputs": [{ "type": "address", "name": "token" }],
-    "constant": false,
-    "payable": false,
     "type": "function",
-    "gas": 187911
-  },
-  {
-    "name": "getExchange",
-    "outputs": [{ "type": "address", "name": "out" }],
-    "inputs": [{ "type": "address", "name": "token" }],
-    "constant": true,
+    "stateMutability": "nonpayable",
     "payable": false,
-    "type": "function",
-    "gas": 715
-  },
-  {
-    "name": "getToken",
-    "outputs": [{ "type": "address", "name": "out" }],
-    "inputs": [{ "type": "address", "name": "exchange" }],
-    "constant": true,
-    "payable": false,
-    "type": "function",
-    "gas": 745
-  },
-  {
-    "name": "getTokenWithId",
-    "outputs": [{ "type": "address", "name": "out" }],
-    "inputs": [{ "type": "uint256", "name": "token_id" }],
-    "constant": true,
-    "payable": false,
-    "type": "function",
-    "gas": 736
-  },
-  {
-    "name": "exchangeTemplate",
-    "outputs": [{ "type": "address", "name": "out" }],
-    "inputs": [],
-    "constant": true,
-    "payable": false,
-    "type": "function",
-    "gas": 633
-  },
-  {
-    "name": "tokenCount",
-    "outputs": [{ "type": "uint256", "name": "out" }],
-    "inputs": [],
-    "constant": true,
-    "payable": false,
-    "type": "function",
-    "gas": 663
+    "outputs": [],
+    "name": "setFeeToSetter",
+    "inputs": [{ "type": "address", "name": "_feeToSetter", "internalType": "address" }],
+    "constant": false
   }
 ]

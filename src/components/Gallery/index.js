@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import test from './test.png'
+import test from './AlvinPlushie_HD.gif'
 
 const GalleryFrame = styled.div`
   width: 100%;

@@ -5,9 +5,9 @@ import { amountFormatter, TRADE_TYPES } from '../utils'
 import Button from './Button'
 
 import close from './Gallery/close.svg'
-import sent from './Gallery/sent.png'
+import sent from './Gallery/AlvinPlushie_HD.gif'
+import icon from './Gallery/alvin.png'
 import { useAppContext } from '../context'
-
 const ConfirmedFrame = styled.div`
   width: 100%;
   /* padding: 2rem; */
@@ -22,9 +22,7 @@ function Controls({ closeCheckout }) {
   return (
     <FrameControls>
       <Unicorn>
-        <span role="img" aria-label="unicorn">
-          🦄
-        </span>{' '}
+        <img aria-label="alvin" role="img" src={icon} style={{height: "16px", marginBottom:"-2px"}}/>{' '}
         Pay
       </Unicorn>
       <Close src={close} onClick={() => closeCheckout()} alt="close" />
@@ -89,7 +87,7 @@ export default function Confirmed({ hash, type, amount, clearLastTransaction, cl
           <ImgStyle src={sent} alt="Logo" />
           <InfoFrame>
             <Owned>
-              <p> {`You got ${amountFormatter(amount, 18, 0)} SOCKS!`}</p>
+              <p> {`You got ${amountFormatter(amount, 18, 0)} ALVIN!`}</p>
             </Owned>
           </InfoFrame>
         </TopFrame>
@@ -99,7 +97,7 @@ export default function Confirmed({ hash, type, amount, clearLastTransaction, cl
           </EtherscanLink>
         </CheckoutPrompt>
         <ButtonFrame
-          text={`Redeem your SOCKS now`}
+          text={`Redeem your ALVIN now`}
           type={'cta'}
           onClick={() => {
             clearLastTransaction()
@@ -118,7 +116,7 @@ export default function Confirmed({ hash, type, amount, clearLastTransaction, cl
           <ImgStyle src={sent} alt="Logo" />
           <InfoFrame>
             <Owned>
-              <p>You sold socks!</p>
+              <p>You sold ALVIN!</p>
             </Owned>
           </InfoFrame>
         </TopFrame>

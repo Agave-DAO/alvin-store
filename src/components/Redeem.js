@@ -9,9 +9,10 @@ import RedeemForm from './RedeemForm'
 import { amountFormatter } from '../utils'
 
 import IncrementToken from './IncrementToken'
-import test from './Gallery/test.png'
+import test from './Gallery/AlvinPlushie_HD.gif'
 import nfc from './Gallery/nfc.png'
-import sent from './Gallery/sent.png'
+import sent from './Gallery/AlvinPlushie_HD.gif'
+import icon from './Gallery/alvin.png'
 
 import close from './Gallery/close.svg'
 import closeDark from './Gallery/close_dark.svg'
@@ -35,9 +36,7 @@ export function Controls({ closeCheckout, theme, type }) {
   return (
     <FrameControls>
       <Unicorn theme={theme}>
-        <span role="img" aria-label="unicorn">
-          🦄
-        </span>{' '}
+      <img aria-label="alvin" role="img" src={icon} style={{height: "16px", marginBottom:"-2px"}}/>{' '}
         Pay{' '}
         <span style={{ color: '#737373' }}>
           {' '}
@@ -86,7 +85,7 @@ export default function Redeem({
   })
 
   function link(hash) {
-    return `https://etherscan.io/tx/${hash}`
+    return `https://blockscout.com/xdai/mainnet/tx/${hash}`
   }
 
   function renderContent() {
@@ -95,7 +94,7 @@ export default function Redeem({
         <ButtonFrame
           className="button"
           disabled={false}
-          text={account === null ? 'Connect Wallet' : 'Redeem SOCKS'}
+          text={account === null ? 'Connect Wallet' : 'Redeem ALVIN'}
           type={'cta'}
           onClick={() => {
             setConnector('Injected', { suppressAndThrowErrors: true }).catch(() => {
@@ -141,11 +140,10 @@ export default function Redeem({
 
             <InfoFrame hasPickedAmount={hasPickedAmount}>
               <ImgStyle src={test} alt="Logo" hasPickedAmount={hasPickedAmount} />
-              <Owned>
-                <p>{state.count} Unisocks</p>
-                <p style={{ fontSize: '20px', fontWeight: '400', color: '#AEAEAE' }}>One size fits most</p>
-                <p style={{ fontSize: '14px', fontWeight: '500', marginTop: '16px', color: '#AEAEAE' }}>Edition 0</p>
-              </Owned>
+              <OwnedShipping>
+                <p>{state.count} ALVIN</p>
+                <p style={{ fontSize: '20px', fontWeight: '400', color: '#AEAEAE' }}>Small little plushie</p>
+              </OwnedShipping>
             </InfoFrame>
           </TopFrame>
 
@@ -176,41 +174,10 @@ export default function Redeem({
             <Controls closeCheckout={closeCheckout} type="confirm" />
             <InfoFrame hasPickedAmount={hasPickedAmount}>
               <ImgStyle src={test} alt="Logo" hasPickedAmount={hasPickedAmount} />
-              <Owned>
-                <p style={{ fontSize: '18px' }}>{state.count} Unisocks</p>
-                <p style={{ fontSize: '14px', fontWeight: '500' }}>One size fits most</p>
-                <p
-                  style={{
-                    fontSize: '12px',
-                    fontWeight: '500',
-                    color: '#AEAEAE',
-                    marginTop: '16px',
-                    marginRight: '16px'
-                  }}
-                >
-                  {userAddress}
-                </p>
-              </Owned>
-            </InfoFrame>
-            <InfoFrame hasPickedAmount={hasPickedAmount}>
-              <ImgStyle src={nfc} alt="Logo" hasPickedAmount={hasPickedAmount} />
-              <Bonus>Bonus</Bonus>
-              <Owned>
-                <p style={{ fontSize: '18px' }}>{state.count} Unisocks NFT</p>
-                <p style={{ fontSize: '14px', fontWeight: '500' }}>Digital Collectible (10kb)</p>
-                <p
-                  style={{
-                    fontSize: '12px',
-                    fontWeight: '500',
-                    color: '#AEAEAE',
-                    marginTop: '16px',
-                    marginRight: '16px',
-                    wordBreak: 'break-all'
-                  }}
-                >
-                  {account}
-                </p>
-              </Owned>
+              <OwnedShipping>
+                <p>{state.count} ALVIN</p>
+                <p style={{ fontSize: '20px', fontWeight: '400', color: '#AEAEAE' }}>Small little plushie</p>
+              </OwnedShipping>
             </InfoFrame>
           </TopFrame>
           {/* <Back
@@ -227,7 +194,7 @@ export default function Redeem({
             disabled={pending}
             pending={pending}
             // text={pending ? `Waiting for confirmation...` : `Redeem ${numberBurned} SOCKS`}
-            text={pending ? `Waiting for confirmation...` : `Place order (Redeem ${numberBurned} SOCKS) `}
+            text={pending ? `Waiting for confirmation...` : `Place order (Redeem ${numberBurned} ALVIN) `}
             type={'cta'}
             onClick={() => {
               burn(numberBurned.toString())
@@ -269,7 +236,7 @@ export default function Redeem({
             <ImgStyle src={sent} alt="Logo" hasPickedAmount={hasPickedAmount} hasBurnt={hasBurnt} />
             <InfoFrame>
               <Owned>
-                <p>You got socks!</p>
+                <p>You got ALVIN!</p>
               </Owned>
             </InfoFrame>
           </TopFrame>
@@ -356,7 +323,7 @@ const InfoFrame = styled.div`
   margin-top: ${props => (props.hasPickedAmount ? '8px' : '0')};
   justify-content: ${props => (props.hasPickedAmount ? 'flex-start' : 'space-between')};
   align-items: flex-end;
-  padding: ${props => (props.hasPickedAmount ? '1rem 0 1rem 0' : ' 0')};
+  padding: ${props => (props.hasPickedAmount ? '0' : ' 0')};
   /* padding: 1rem 0 1rem 0; */
   margin-top: 12px;
   /* margin-bottom: 8px; */
@@ -372,8 +339,22 @@ const Owned = styled.div`
   font-weight: 700;
   color: #efe7e4;
   font-size: 24px;
-  margin-bottom: 12px;
-  margin: 0px;
+  margin-bottom: 2px;
+  white-space: pre-wrap;
+`
+
+const OwnedShipping = styled.div`
+  font-weight: 700;
+  color: #efe7e4;
+  font-size: 24px;
+  margin-bottom: 30px;
+  white-space: pre-wrap;
+`
+const OwnedPlaceOrder = styled.div`
+  font-weight: 700;
+  color: #efe7e4;
+  font-size: 24px;
+  margin-bottom: 16px;
   white-space: pre-wrap;
 `
 
@@ -390,8 +371,9 @@ const Bonus = styled.div`
 
 const ImgStyle = styled.img`
   width: ${props => (props.hasPickedAmount ? (props.hasBurnt ? '300px' : '120px') : '300px')};
-  padding: ${props => (props.hasPickedAmount ? (props.hasBurnt ? '0px' : '0 1rem 0 0') : '2rem 0 2rem 0')};
+  padding: ${props => (props.hasPickedAmount ? '0.5rem' : '1rem 1rem 1rem 1rem')};
   box-sizing: border-box;
+  border-radius: ${props => (props.hasPickedAmount ? '20px' : '30px')};
 `
 const SockCount = styled.span`
   color: #aeaeae;

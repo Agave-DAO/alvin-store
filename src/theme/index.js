@@ -16,8 +16,8 @@ export default createGlobalStyle`
 `
 
 const theme = {
-  uniswapPink: '#FE6DDE',
-  primary: '#2B2B2B',
+  uniswapPink: '#019D8B',
+  primary: '#019D8B',
   secondary: '#F1F2F6',
   text: '#000',
   textDisabled: '#737373',

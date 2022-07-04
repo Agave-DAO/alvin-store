@@ -7,7 +7,8 @@ import SelectToken from './SelectToken'
 import IncrementToken from './IncrementToken'
 import { useAppContext } from '../context'
 import { ERROR_CODES, amountFormatter, TRADE_TYPES } from '../utils'
-import test from './Gallery/test.png'
+import test from './Gallery/AlvinPlushie_HD.gif'
+import icon from './Gallery/alvin.png'
 // import { ethers } from 'ethers'
 
 export function useCount() {
@@ -83,7 +84,7 @@ export default function BuyAndSell({
   //       ? '0x888503cb966a67192afb74c740abaec0b7e8bda370bc8f853fb040eab247c63f'
   //       : '0x8cd2cc7ebb7d47dd0230bd505fa4b3375faabb1c9f92137f725b85e4de3f61df',
   //     TRADE_TYPES.SELL,
-  //     ethers.utils.bigNumberify('1000000000000000000')
+  //     ethers.BigNumber.from('1000000000000000000')
   //   )
   // }
 
@@ -95,7 +96,7 @@ export default function BuyAndSell({
   const [validationError, setValidationError] = useState()
 
   function link(hash) {
-    return `https://etherscan.io/tx/${hash}`
+    return `https://blockscout.com/xdai/mainnet/tx/${hash}`
   }
 
   function getText(account, buying, errorMessage, ready, pending, hash) {
@@ -106,13 +107,13 @@ export default function BuyAndSell({
         if (pending && hash) {
           return 'Waiting for confirmation'
         } else {
-          return 'Sell Socks'
+          return 'Sell ALVIN'
         }
       } else {
         if (pending && hash) {
           return 'Waiting for confirmation'
         } else {
-          return 'Buy Socks'
+          return 'Buy ALVIN'
         }
       }
     } else {
@@ -204,9 +205,7 @@ export default function BuyAndSell({
       <TopFrame>
         {/* <button onClick={() => fake()}>test</button> */}
         <Unicorn>
-          <span role="img" aria-label="unicorn">
-            🦄
-          </span>{' '}
+          <img aria-label="alvin" role="img" src={icon} style={{height: "16px", marginBottom:"-1px"}}/>{' '}
           Pay
         </Unicorn>
         <ImgStyle src={test} alt="Logo" />
@@ -244,7 +243,7 @@ export default function BuyAndSell({
       )}
       {shouldRenderUnlock ? (
         <ButtonFrame
-          text={`Unlock ${buying ? selectedTokenSymbol : 'SOCKS'}`}
+          text={`Unlock ${buying ? selectedTokenSymbol : 'ALVIN'}`}
           type={'cta'}
           pending={pending}
           onClick={() => {

@@ -30,7 +30,7 @@ const ButtonFrame = styled.button`
       ? props.disabled
         ? // ? 'linear-gradient(97.28deg, rgba(254, 109, 222, 0.2) 2.08%, rgba(255, 157, 234, 0.2) 106.51%)'
           '#f1f2f6'
-        : 'linear-gradient(97.28deg, #fe6dde 2.08%, #ff9dea 106.51%)'
+        : 'linear-gradient(272.02deg, #019D8B 1.22%, #36CFA2 99.28%);'
       : props.disabled // ? 'linear-gradient(97.28deg, rgba(254, 109, 222, 0.2) 2.08%, rgba(255, 157, 234, 0.2) 106.51%)'
       ? '#f1f2f6'
       : 'none'};

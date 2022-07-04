@@ -56,7 +56,7 @@ export default function RedeemButton({ balanceSOCKS }) {
         disabled={
           account === null ||
           !balanceSOCKS ||
-          balanceSOCKS.lt(ethers.utils.bigNumberify(10).pow(ethers.utils.bigNumberify(18)))
+          balanceSOCKS.lt(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18)))
         }
         text={'Redeem'}
         type={'secondary'}

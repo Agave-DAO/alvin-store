@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useAppContext } from '../../context'
 import { Header } from '../Body'
 import { amountFormatter } from '../../utils'
+import icon from '../../components/Gallery/alvin.png'
 
 export default function Body({ totalSupply, reserveSOCKSToken, ready, balanceSOCKS }) {
   const [state] = useAppContext()
@@ -11,41 +12,39 @@ export default function Body({ totalSupply, reserveSOCKSToken, ready, balanceSOC
     <AppWrapper overlay={state.visible}>
       <Header totalSupply={totalSupply} ready={ready} balanceSOCKS={balanceSOCKS} setShowConnect={() => {}} />
       <Content>
-        <Title>SOCKS Stats</Title>
+        <Title>ALVIN Stats</Title>
         <Description>
           <p>
-            <span role="img" aria-label="socks">
-              🧦
-            </span>
-            Initial SOCKS
+          <img aria-label="alvin" role="img" src={icon} style={{height: "16px", marginBottom:"-2px", marginRight:"1px"}}/>
+            Initial ALVIN
           </p>
           <p>500</p>
         </Description>
         <Description>
           <p>
-            <span role="img" aria-label="socks">
+            <span role="img" aria-label="alvin">
               🔥
             </span>
-            Redeemed SOCKS
+            Redeemed ALVIN
           </p>
           <p>{500 - totalSupply}</p>
         </Description>
         <Description>
           <p>
-            <span role="img" aria-label="socks">
+            <span role="img" aria-label="alvin">
               💦
             </span>
-            SOCKS Pool
+            ALVIN Pool
           </p>
           <p>{amountFormatter(reserveSOCKSToken, 18, 0)}</p>
         </Description>
         <Shim />
         <Footer>
-          The price of SOCKS changes when tokens are bought and sold.
+          The price of ALVIN changes when tokens are bought and sold.
           <br />
           <br />
           <a
-            href="https://medium.com/frst/money-laundry-the-rise-of-the-crypto-sock-market-f979aafc3796"
+            href="https://agave.finance/alvin/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -65,7 +64,7 @@ const Footer = styled.p`
 
   a {
     text-decoration: none;
-    color: #fe6dde;
+    color: #00B59C;
     margin-bottom: 1rem;
   }
 `
