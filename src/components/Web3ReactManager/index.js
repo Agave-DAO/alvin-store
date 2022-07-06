@@ -17,7 +17,7 @@ export default function Web3ReactManager({ children }) {
             if (accounts.length >= 1) {
               setConnector('Injected', { suppressAndThrowErrors: true })
             } else {
-              setConnector('Network')
+              setConnector('Injected', { suppressAndThrowErrors: true })
             }
           })
         } catch {

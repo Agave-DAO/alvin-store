@@ -1,7 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ethers } from 'ethers'
-import { useWeb3Context } from 'web3-react'
 
 import Button from './Button'
 import { useAppContext } from '../context'
@@ -35,7 +33,6 @@ const Shim = styled.div`
 
 export default function RedeemButton({ balanceSOCKS }) {
   const [, setState] = useAppContext()
-  const { account } = useWeb3Context()
 
   function handleToggleCheckout(tradeType) {
     setState(state => ({ ...state, visible: !state.visible, tradeType }))
@@ -44,25 +41,19 @@ export default function RedeemButton({ balanceSOCKS }) {
   return (
     <BuyButtonFrame>
       <ButtonFrame
-        disabled={balanceSOCKS > 0 ? false : true}
-        text={'Sell'}
+        disabled={false}
+        text={'Buy'}
         type={'secondary'}
         onClick={() => {
-          handleToggleCheckout(TRADE_TYPES.SELL)
+          handleToggleCheckout(TRADE_TYPES.BUY)
         }}
       />
       <Shim />
       <ButtonFrame
-        disabled={
-          account === null ||
-          !balanceSOCKS ||
-          balanceSOCKS.lt(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18)))
-        }
-        text={'Redeem'}
+        disabled={balanceSOCKS > 0 ? false : true}
+        text={'Sell'}
         type={'secondary'}
-        onClick={() => {
-          handleToggleCheckout(TRADE_TYPES.REDEEM)
-        }}
+        onClick={() => window.open("https://app.honeyswap.org/#/swap?outputCurrency=0x50dbde932a94b0c23d27cdd30fbc6b987610c831")}
       />
     </BuyButtonFrame>
   )
