@@ -12,7 +12,7 @@ import IncrementToken from './IncrementToken'
 import test from './Gallery/AlvinPlushie_HD.gif'
 import nfc from './Gallery/nfc.png'
 import sent from './Gallery/AlvinPlushie_HD.gif'
-import icon from './Gallery/alvin.png'
+import icon from './Gallery/alvin-nobg.png'
 
 import close from './Gallery/close.svg'
 import closeDark from './Gallery/close_dark.svg'

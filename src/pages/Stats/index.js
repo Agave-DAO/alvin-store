@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useAppContext } from '../../context'
 import { Header } from '../Body'
 import { amountFormatter } from '../../utils'
-import icon from '../../components/Gallery/alvin.png'
+import icon from '../../components/Gallery/alvin-nobg.png'
 
 export default function Body({ totalSupply, reserveSOCKSToken, ready, balanceSOCKS }) {
   const [state] = useAppContext()
