@@ -9,7 +9,8 @@ import {
   getEtherBalance,
   getTokenBalance,
   getTokenAllowance,
-  TOKEN_ADDRESSES
+  TOKEN_ADDRESSES,
+  getAlvinClaimContract
 } from '../utils'
 import { utils } from 'ethers'
 
@@ -39,6 +40,19 @@ export function useTokenContract(tokenAddress, withSignerIfPossible = true) {
       return null
     }
   }, [account, library, tokenAddress, withSignerIfPossible])
+}
+
+export function useAlvinClaimContract(withSignerIfPossible = true) {
+  const { library, account } = useWeb3Context()
+  const address = "0xB9095eb002fdBbD2a6656AB91c367304F76d65FF"
+
+  return useMemo(() => {
+    try {
+      return getAlvinClaimContract(address, library, withSignerIfPossible ? account : undefined)
+    } catch {
+      return null
+    }
+  }, [account, library, address, withSignerIfPossible])
 }
 
 export function useExchangeContract(tokenAddress, withSignerIfPossible = true) {

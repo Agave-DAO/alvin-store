@@ -10,7 +10,8 @@ import {
   useAddressAllowance,
   useExchangeReserves,
   useExchangeAllowance,
-  useTotalSupply
+  useTotalSupply,
+  useAlvinClaimContract
 } from '../../hooks'
 import Body from '../Body'
 import Stats from '../Stats'
@@ -156,6 +157,9 @@ export default function Main({ stats, status }) {
   const exchangeContractSOCKS = useExchangeContract(TOKEN_ADDRESSES.SOCKS)
   const exchangeContractSelectedToken = useExchangeContract(TOKEN_ADDRESSES[selectedTokenSymbol])
   const exchangeContractDAI = useExchangeContract(TOKEN_ADDRESSES.DAI)
+
+  // get claim alvin contract
+  const alvinClaimContract = useAlvinClaimContract()
 
   // get token contracts
   const tokenContractSOCKS = useTokenContract(TOKEN_ADDRESSES.SOCKS)
@@ -508,15 +512,14 @@ export default function Main({ stats, status }) {
   }
 
   async function burn(amount) {
-    const parsedAmount = ethers.utils.parseUnits(amount, 18)
+    const parsedAmount = ethers.utils.parseUnits(amount, 0)
 
     const estimatedGasPrice = await library
       .getGasPrice()
       .then(gasPrice => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
-    const estimatedGasLimit = await tokenContractSOCKS.estimateGas.transfer("0x000000000000000000000000000000000000dead", parsedAmount)
-    // TODO: When testing is done switch this address to 0x0000...
-    return tokenContractSOCKS.transfer(process.env.REACT_APP_ETHEREUM_ADDRESS, parsedAmount, {
+    const estimatedGasLimit = await alvinClaimContract.estimateGas.redeemAlvin(parsedAmount)
+    return alvinClaimContract.redeemAlvin(parsedAmount, {
       gasLimit: 90003, // TODO: calculate this properly
       gasPrice: estimatedGasPrice
     })
