@@ -12,7 +12,7 @@ import IncrementToken from './IncrementToken'
 import test from './Gallery/AlvinPlushie_HD.gif'
 import nfc from './Gallery/nfc.png'
 import sent from './Gallery/AlvinPlushie_HD.gif'
-import icon from './Gallery/alvin.png'
+import icon from './Gallery/alvin-nobg.png'
 
 import close from './Gallery/close.svg'
 import closeDark from './Gallery/close_dark.svg'
@@ -180,6 +180,26 @@ export default function Redeem({
                 <p>{state.count} ALVIN</p>
                 <p style={{ fontSize: '20px', fontWeight: '400', color: '#AEAEAE' }}>Small little plushie</p>
               </OwnedShipping>
+            </InfoFrame>
+            <InfoFrame hasPickedAmount={hasPickedAmount}>
+              <ImgStyle src={test} alt="Logo" hasPickedAmount={hasPickedAmount} />
+              <Bonus>Bonus</Bonus>
+              <OwnedNft>
+                <p style={{ fontSize: '18px' }}>{state.count} ALVIN NFT</p>
+                <p style={{ fontSize: '14px', fontWeight: '500' }}>Digital Collectible</p>
+                <p
+                  style={{
+                    fontSize: '12px',
+                    fontWeight: '500',
+                    color: '#AEAEAE',
+                    marginTop: '16px',
+                    marginRight: '16px',
+                    wordBreak: 'break-all'
+                  }}
+                >
+                  {account}
+                </p>
+              </OwnedNft>
             </InfoFrame>
           </TopFrame>
           {/* <Back
@@ -362,7 +382,7 @@ const OwnedShipping = styled.div`
   margin-bottom: 30px;
   white-space: pre-wrap;
 `
-const OwnedPlaceOrder = styled.div`
+const OwnedNft = styled.div`
   font-weight: 700;
   color: #efe7e4;
   font-size: 24px;
