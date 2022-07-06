@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useWeb3Context } from 'web3-react'
 
 import Button from './Button'
 import { useAppContext } from '../context'
 import { TRADE_TYPES } from '../utils'
+import { ethers } from 'ethers'
 
 const BuyButtonFrame = styled.div`
   margin: 0.5rem 0rem 0.5rem 0rem;
@@ -31,7 +33,8 @@ const ButtonFrame = styled(Button)`
 //   height: 2rem;
 // `
 
-export default function BuyButtons(props) {
+export default function BuyButtons({ balanceSOCKS }) {
+  const { account } = useWeb3Context()
   const [, setState] = useAppContext()
 
   function handleToggleCheckout(tradeType) {
@@ -41,11 +44,13 @@ export default function BuyButtons(props) {
   return (
     <BuyButtonFrame>
       <ButtonFrame
-        disabled={false}
-        text={'Buy'}
+        disabled={
+          account === null || !balanceSOCKS || balanceSOCKS.lt(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18)))
+        }
+        text={'Redeem'}
         type={'cta'}
         onClick={() => {
-          handleToggleCheckout(TRADE_TYPES.BUY)
+          handleToggleCheckout(TRADE_TYPES.REDEEM)
         }}
       />
     </BuyButtonFrame>
