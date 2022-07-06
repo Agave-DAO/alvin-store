@@ -1,6 +1,7 @@
 import { ethers } from 'ethers'
 
 import ERC20_ABI from './erc20.json'
+import CLAIMALVIN_ABI from './claimAlvin.json'
 import EXCHANGE_ABI from './exchange.json'
 import FACTORY_ABI from './factory.json'
 
@@ -61,6 +62,9 @@ export function getContract(address, ABI, library, account) {
 
 export function getTokenContract(tokenAddress, library, account) {
   return getContract(tokenAddress, ERC20_ABI, library, account)
+}
+export function getAlvinClaimContract(address, library, account) {
+  return getContract(address, CLAIMALVIN_ABI, library, account)
 }
 
 export function getExchangeContract(exchangeAddress, library, account) {
