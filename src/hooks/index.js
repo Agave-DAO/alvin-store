@@ -58,29 +58,13 @@ export function useAlvinClaimContract(withSignerIfPossible = true) {
 export function useExchangeContract(tokenAddress, withSignerIfPossible = true) {
   const { library, account } = useWeb3Context()
 
-  const [exchangeAddress, setExchangeAddress] = useState()
-  useEffect(() => {
-    if (isAddress(tokenAddress)) {
-      let stale = false
-      getTokenExchangeAddressFromFactory(tokenAddress, library).then(exchangeAddress => {
-        if (!stale) {
-          setExchangeAddress(exchangeAddress)
-        }
-      })
-      return () => {
-        stale = true
-        setExchangeAddress()
-      }
-    }
-  }, [library, tokenAddress])
-
   return useMemo(() => {
     try {
-      return getExchangeContract(exchangeAddress, library, withSignerIfPossible ? account : undefined)
+      return getExchangeContract(library, withSignerIfPossible ? account : undefined)
     } catch {
       return null
     }
-  }, [exchangeAddress, library, withSignerIfPossible, account])
+  }, [ library, withSignerIfPossible, account])
 }
 
 export function useAddressBalance(address, tokenAddress) {

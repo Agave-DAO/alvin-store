@@ -165,11 +165,11 @@ export default function BuyAndSell({
 
   function renderFormData() {
     let conditionalRender
-    if (buying && buyValidationState.inputValue) {
+    if (buying) {
       conditionalRender = (
         <>
           <p>
-            ${ready && amountFormatter(dollarize(buyValidationState.inputValue), 18, 2)}
+            ${amountFormatter(dollarPrice, 18, 2)}
             {/* ({amountFormatter(buyValidationState.inputValue, 18, 4)} {selectedTokenSymbol}) */}
           </p>
         </>

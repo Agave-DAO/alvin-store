@@ -234,7 +234,7 @@ export default function Main({ stats, status }) {
   }, [reserveDAIETH, reserveDAIToken, reserveSelectedTokenETH, reserveSelectedTokenToken, selectedTokenSymbol])
 
   function _dollarize(amount, exchangeRate) {
-    return amount.mul(exchangeRate).div(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18)))
+    return amount.div(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18)))
   }
 
   function dollarize(amount) {
@@ -247,12 +247,12 @@ export default function Main({ stats, status }) {
   const [dollarPrice, setDollarPrice] = useState()
   useEffect(() => {
     try {
-      const SOCKSExchangeRateETH = getExchangeRate(reserveSOCKSToken, reserveSOCKSETH)
-      setDollarPrice(
-        SOCKSExchangeRateETH.mul(USDExchangeRateETH).div(
-          ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18))
-        )
-      )
+      const fetchRatio = async () => {
+        const data = await exchangeContractSOCKS.SWAP_RATIO();
+        // TODO: fix this conversion when the ratio on the contract is correct
+        setDollarPrice(data.mul(1000000000000))
+      }    
+      fetchRatio()
     } catch {
       setDollarPrice()
     }
