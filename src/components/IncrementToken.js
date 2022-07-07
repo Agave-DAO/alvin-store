@@ -57,8 +57,10 @@ export default function IncrementToken({ dollarPrice, dollarAmountPrice, setDoll
         justify={'flex-start'}
         onClick={() => {
           decrementCount()
-          if(count > 1)
-            setDollarAmountPrice(dollarAmountPrice.sub(dollarPrice))
+          setDollarAmountPrice(dollarPrice.mul(count-1))
+          if(count == 1){
+            setDollarAmountPrice(dollarPrice.mul(count))
+          }
         }}
       >
         -
@@ -69,7 +71,7 @@ export default function IncrementToken({ dollarPrice, dollarAmountPrice, setDoll
         justify={'flex-end'}
         onClick={() => {
           incrementCount()
-          setDollarAmountPrice(dollarAmountPrice.add(dollarPrice))
+          setDollarAmountPrice(dollarPrice.mul(count+1))
         }}
       >
         +
