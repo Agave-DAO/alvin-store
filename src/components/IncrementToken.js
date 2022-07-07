@@ -49,17 +49,29 @@ const IncrementButton = styled.span`
   justify-content: center;
 `
 
-export default function IncrementToken({ initialValue, max }) {
+export default function IncrementToken({ dollarPrice, dollarAmountPrice, setDollarAmountPrice, initialValue, max }) {
   const [count, incrementCount, decrementCount] = useCount(initialValue, max)
-
   return (
     <SelectFrame>
-      <IncrementButton justify={'flex-start'} onClick={decrementCount}>
+      <IncrementButton
+        justify={'flex-start'}
+        onClick={() => {
+          decrementCount()
+          if(count > 1)
+            setDollarAmountPrice(dollarAmountPrice.sub(dollarPrice))
+        }}
+      >
         -
       </IncrementButton>
       <SelectMenu>{count}</SelectMenu>
 
-      <IncrementButton justify={'flex-end'} onClick={incrementCount}>
+      <IncrementButton
+        justify={'flex-end'}
+        onClick={() => {
+          incrementCount()
+          setDollarAmountPrice(dollarAmountPrice.add(dollarPrice))
+        }}
+      >
         +
       </IncrementButton>
     </SelectFrame>
