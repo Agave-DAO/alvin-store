@@ -19,7 +19,7 @@ export default function Card({ totalSupply, dollarPrice, reserveSOCKSToken }) {
         <Gallery />
         <MarketData>
           <span>
-            <CurrentPrice>{dollarPrice ? `$${amountFormatter(dollarPrice, 18, 2)} USD` : '$0.00'}</CurrentPrice>
+            <CurrentPrice>{dollarPrice ? `$${amountFormatter(dollarPrice, 0, 0)} USD` : '$0.00'}</CurrentPrice>
             <SockCount>
               {reserveSOCKSToken && totalSupply
                 ? `${amountFormatter(reserveSOCKSToken, 18, 0)}/${totalSupply} available`

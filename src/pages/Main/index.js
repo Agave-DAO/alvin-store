@@ -250,7 +250,7 @@ export default function Main({ stats, status }) {
       const fetchRatio = async () => {
         const data = await exchangeContractSOCKS.SWAP_RATIO();
         // TODO: fix this conversion when the ratio on the contract is correct
-        setDollarPrice(data.mul(1000000000000))
+        setDollarPrice(ethers.BigNumber.from(10000000000).div(data))
       }    
       fetchRatio()
     } catch {

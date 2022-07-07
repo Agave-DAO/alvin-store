@@ -163,7 +163,7 @@ export default function BuyAndSell({
       conditionalRender = (
         <>
           <p>
-            ${amountFormatter(dollarPrice, 18, 2)}
+            ${amountFormatter(dollarPrice, 0, 0)}
             {/* ({amountFormatter(buyValidationState.inputValue, 18, 4)} {selectedTokenSymbol}) */}
           </p>
         </>
@@ -185,7 +185,7 @@ export default function BuyAndSell({
   }
 
   function TokenVal() {
-    return amountFormatter(dollarAmountPrice, 18, 4)
+    return amountFormatter(dollarAmountPrice, 0, 0)
   }
 
   return (
