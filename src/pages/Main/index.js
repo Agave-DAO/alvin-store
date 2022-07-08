@@ -367,6 +367,16 @@ export default function Main({ stats, status }) {
         gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
         gasPrice: estimatedGasPrice
       })
+    } else if (address === TOKEN_ADDRESSES.SOCKS) {
+      const estimatedGasLimit = await tokenContractSOCKS.estimateGas.approve(
+        address,
+        ethers.utils.parseEther(value.toString())
+      )
+
+      return tokenContractSOCKS.approve(address, ethers.utils.parseEther(value.toString()), {
+        gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
+        gasPrice: estimatedGasPrice
+      })
     }
   }
 
@@ -377,12 +387,8 @@ export default function Main({ stats, status }) {
       .getGasPrice()
       .then(gasPrice => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
-    // const estimatedGasLimit = await exchangeContractSOCKS.estimateGas.swapXtoY(
-    //   ethers.utils.parseEther(value.toString()),
-    //   "0x00",
-    // )
     // TODO: FIX THIS
-    return exchangeContractSOCKS.swapXtoY(ethers.utils.parseEther(value.toString()), "0x", {
+    return exchangeContractSOCKS.swapXtoY(ethers.utils.parseEther(value.toString()), '0x', {
       gasLimit: 90003,
       gasPrice: estimatedGasPrice
     })
@@ -514,7 +520,6 @@ export default function Main({ stats, status }) {
       .getGasPrice()
       .then(gasPrice => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
-    const estimatedGasLimit = await alvinClaimContract.estimateGas.redeemAlvin(parsedAmount)
     return alvinClaimContract.redeemAlvin(parsedAmount, {
       gasLimit: 90003, // TODO: calculate this properly
       gasPrice: estimatedGasPrice

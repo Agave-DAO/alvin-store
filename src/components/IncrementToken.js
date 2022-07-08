@@ -49,17 +49,28 @@ const IncrementButton = styled.span`
   justify-content: center;
 `
 
-export default function IncrementToken({ dollarPrice, dollarAmountPrice, setDollarAmountPrice, initialValue, max }) {
+export default function IncrementToken({
+  dollarPrice,
+  dollarAmountPrice,
+  setDollarAmountPrice,
+  setApproving,
+  initialValue,
+  max,
+  buying
+}) {
   const [count, incrementCount, decrementCount] = useCount(initialValue, max)
   return (
     <SelectFrame>
       <IncrementButton
         justify={'flex-start'}
         onClick={() => {
+          setApproving(true)
           decrementCount()
-          setDollarAmountPrice(dollarPrice.mul(count-1))
-          if(count == 1){
-            setDollarAmountPrice(dollarPrice.mul(count))
+          if (buying) {
+            setDollarAmountPrice(dollarPrice.mul(count - 1))
+            if (count == 1) {
+              setDollarAmountPrice(dollarPrice.mul(count))
+            }
           }
         }}
       >
@@ -70,8 +81,9 @@ export default function IncrementToken({ dollarPrice, dollarAmountPrice, setDoll
       <IncrementButton
         justify={'flex-end'}
         onClick={() => {
+          setApproving(true)
           incrementCount()
-          setDollarAmountPrice(dollarPrice.mul(count+1))
+          if (buying) setDollarAmountPrice(dollarPrice.mul(count + 1))
         }}
       >
         +

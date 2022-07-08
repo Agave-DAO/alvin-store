@@ -108,10 +108,8 @@ export default function BuyAndSell({
       if (pending && hash) {
         return 'Waiting for confirmation'
       } else {
-        if(approving)
-          return 'Approve ALVIN'
-        else 
-          return 'Buy ALVIN'
+        if (approving) return 'Approve ALVIN'
+        else return 'Buy ALVIN'
       }
     } else {
       return errorMessage ? errorMessage : 'Loading...'
@@ -212,6 +210,8 @@ export default function BuyAndSell({
             dollarPrice={dollarPrice}
             dollarAmountPrice={dollarAmountPrice}
             setDollarAmountPrice={setDollarAmountPrice}
+            setApproving={setApproving}
+            buying={buying}
           />
         </InfoFrame>
       </TopFrame>
@@ -261,11 +261,13 @@ export default function BuyAndSell({
                 setShowConnect(true)
               })
             } else {
-              if(approving) {
-                approveToken(TOKEN_ADDRESSES.WXDAI, dollarAmountPrice).then(res => {
-                  setApproveData(res)
-                  setApproving(false)
-                }).catch(console.error)
+              if (approving) {
+                approveToken(TOKEN_ADDRESSES.WXDAI, dollarAmountPrice)
+                  .then(res => {
+                    setApproveData(res)
+                    setApproving(false)
+                  })
+                  .catch(console.error)
               } else {
                 buy(dollarAmountPrice, approveData).then(response => {
                   setCurrentTransaction(

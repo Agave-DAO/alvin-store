@@ -178,6 +178,7 @@ export default function Checkout({
             setShowConnect={setShowConnect}
             closeCheckout={closeCheckout}
             pending={pending}
+            approveToken={approveToken}
           />
         )
       }

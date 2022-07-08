@@ -19,7 +19,8 @@ import closeDark from './Gallery/close_dark.svg'
 
 import Confetti from 'react-dom-confetti'
 
-import emailjs from '@emailjs/browser';
+import emailjs from '@emailjs/browser'
+import { TOKEN_ADDRESSES } from '../utils'
 
 const config = {
   angle: 90,
@@ -38,8 +39,7 @@ export function Controls({ closeCheckout, theme, type }) {
   return (
     <FrameControls>
       <Unicorn theme={theme}>
-      <img aria-label="alvin" role="img" src={icon} style={{height: "16px", marginBottom:"-2px"}}/>{' '}
-        Pay{' '}
+        <img aria-label="alvin" role="img" src={icon} style={{ height: '16px', marginBottom: '-2px' }} /> Pay{' '}
         <span style={{ color: '#737373' }}>
           {' '}
           {type === 'confirm' ? ' / Order Details' : type === 'shipping' ? ' / Shipping Details' : ''}
@@ -60,7 +60,8 @@ export default function Redeem({
   dollarize,
   setCurrentTransaction,
   setShowConnect,
-  closeCheckout
+  closeCheckout,
+  approveToken
 }) {
   const { library, account, setConnector } = useWeb3Context()
   const [state] = useAppContext()
@@ -73,6 +74,7 @@ export default function Redeem({
 
   const [hasBurnt, setHasBurnt] = useState(false)
   const [userAddress, setUserAddress] = useState('')
+  const [approving, setApproving] = useState(true)
 
   const pending = !!transactionHash
 
@@ -119,6 +121,7 @@ export default function Redeem({
               <IncrementToken
                 initialValue={Number(amountFormatter(balanceSOCKS, 18, 0))}
                 max={Number(amountFormatter(balanceSOCKS, 18, 0))}
+                setApproving={setApproving}
               />
             </InfoFrame>
           </TopFrame>
@@ -216,34 +219,57 @@ export default function Redeem({
             disabled={pending}
             pending={pending}
             // text={pending ? `Waiting for confirmation...` : `Redeem ${numberBurned} SOCKS`}
-            text={pending ? `Waiting for confirmation...` : `Place order (Redeem ${numberBurned} ALVIN) `}
+            text={
+              approving
+                ? `Approve ${numberBurned} ALVIN`
+                : pending
+                ? `Waiting for confirmation...`
+                : `Place order (Redeem ${numberBurned} ALVIN) `
+            }
             type={'cta'}
             onClick={() => {
-              burn(numberBurned.toString())
-                .then(response => {
-                  setTransactionHash(response.hash)
+              if (approving) {
+                approveToken(TOKEN_ADDRESSES.SOCKS, numberBurned)
+                  .then(res => {
+                    setApproving(false)
+                  })
+                  .catch(console.error)
+              } else {
+                burn(numberBurned.toString())
+                  .then(response => {
+                    setTransactionHash(response.hash)
 
-                  window.localStorage.setItem("numberBurned", numberBurned)
-                  window.localStorage.setItem("tx", response.hash)
-                  window.localStorage.setItem("txLink", link(response.hash))
-                  
-                  emailjs.send(process.env.REACT_APP_EMAILJS_SERVICE_ID, process.env.REACT_APP_EMAILJS_TEMPLATE_ID, window.localStorage, process.env.REACT_APP_EMAILJS_PUBLIC_KEY)
-                    .then(function(response) {
-                      console.log('SUCCESS!', response.status, response.text);
-                    }, function(error) {
-                      console.log('FAILED...', error);
-                    });
+                    window.localStorage.setItem('numberBurned', numberBurned)
+                    window.localStorage.setItem('tx', response.hash)
+                    window.localStorage.setItem('txLink', link(response.hash))
 
-                  window.localStorage.clear()
-                })
-                .catch(error => {
-                  console.error(error)
-                  // setTransactionHash(
-                  //   true
-                  //     ? '0x888503cb966a67192afb74c740abaec0b7e8bda370bc8f853fb040eab247c63f'
-                  //     : '0x66dac079f7ee27ba7b2cae27eaabf64574c2011aacd007968be6d282b3c2065b'
-                  // )
-                })
+                    emailjs
+                      .send(
+                        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+                        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+                        window.localStorage,
+                        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+                      )
+                      .then(
+                        function(response) {
+                          console.log('SUCCESS!', response.status, response.text)
+                        },
+                        function(error) {
+                          console.log('FAILED...', error)
+                        }
+                      )
+
+                    window.localStorage.clear()
+                  })
+                  .catch(error => {
+                    console.error(error)
+                    // setTransactionHash(
+                    //   true
+                    //     ? '0x888503cb966a67192afb74c740abaec0b7e8bda370bc8f853fb040eab247c63f'
+                    //     : '0x66dac079f7ee27ba7b2cae27eaabf64574c2011aacd007968be6d282b3c2065b'
+                    // )
+                  })
+              }
             }}
           />
           <Back disabled={!!pending}>
