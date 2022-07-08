@@ -163,6 +163,7 @@ export default function Main({ stats, status }) {
 
   // get token contracts
   const tokenContractSOCKS = useTokenContract(TOKEN_ADDRESSES.SOCKS)
+  const tokenContractWXDAI = useTokenContract(TOKEN_ADDRESSES.WXDAI)
   const tokenContractSelectedToken = useTokenContract(TOKEN_ADDRESSES[selectedTokenSymbol])
 
   // get balances
@@ -221,9 +222,7 @@ export default function Main({ stats, status }) {
         const exchangeRateSelectedToken = getExchangeRate(reserveSelectedTokenETH, reserveSelectedTokenToken)
         if (exchangeRateDAI && exchangeRateSelectedToken) {
           setUSDExchangeRateSelectedToken(
-            exchangeRateDAI
-              .mul(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18)))
-              .div(exchangeRateSelectedToken)
+            exchangeRateDAI.mul(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18))).div(exchangeRateSelectedToken)
           )
         }
       }
@@ -248,10 +247,9 @@ export default function Main({ stats, status }) {
   useEffect(() => {
     try {
       const fetchRatio = async () => {
-        const data = await exchangeContractSOCKS.SWAP_RATIO();
-        // TODO: fix this conversion when the ratio on the contract is correct
-        setDollarPrice(data.mul(1000000000000))
-      }    
+        const data = await exchangeContractSOCKS.SWAP_RATIO()
+        setDollarPrice(ethers.BigNumber.from(10000000000).div(data))
+      }
       fetchRatio()
     } catch {
       setDollarPrice()
@@ -353,43 +351,41 @@ export default function Main({ stats, status }) {
       selectedTokenSymbol
     ]
   )
+  async function approveToken(address, value) {
+    const deadline = Math.ceil(Date.now() / 1000) + DEADLINE_FROM_NOW
 
-  async function buy(maximumInputValue, outputValue) {
+    const estimatedGasPrice = await library
+      .getGasPrice()
+      .then(gasPrice => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
+    if (address === TOKEN_ADDRESSES.WXDAI) {
+      const estimatedGasLimit = await tokenContractWXDAI.estimateGas.approve(
+        address,
+        ethers.utils.parseEther(value.toString())
+      )
+
+      return tokenContractWXDAI.approve(address, ethers.utils.parseEther(value.toString()), {
+        gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
+        gasPrice: estimatedGasPrice
+      })
+    }
+  }
+
+  async function buy(value, permitData) {
     const deadline = Math.ceil(Date.now() / 1000) + DEADLINE_FROM_NOW
 
     const estimatedGasPrice = await library
       .getGasPrice()
       .then(gasPrice => gasPrice.mul(ethers.BigNumber.from(150)).div(ethers.BigNumber.from(100)))
 
-    if (selectedTokenSymbol === TOKEN_SYMBOLS.ETH) {
-      const estimatedGasLimit = await exchangeContractSOCKS.estimate.ethToTokenSwapOutput(outputValue, deadline, {
-        value: maximumInputValue
-      })
-      return exchangeContractSOCKS.ethToTokenSwapOutput(outputValue, deadline, {
-        value: maximumInputValue,
-        gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
-        gasPrice: estimatedGasPrice
-      })
-    } else {
-      const estimatedGasLimit = await exchangeContractSelectedToken.estimate.tokenToTokenSwapOutput(
-        outputValue,
-        maximumInputValue,
-        ethers.constants.MaxUint256,
-        deadline,
-        TOKEN_ADDRESSES.SOCKS
-      )
-      return exchangeContractSelectedToken.tokenToTokenSwapOutput(
-        outputValue,
-        maximumInputValue,
-        ethers.constants.MaxUint256,
-        deadline,
-        TOKEN_ADDRESSES.SOCKS,
-        {
-          gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
-          gasPrice: estimatedGasPrice
-        }
-      )
-    }
+    // const estimatedGasLimit = await exchangeContractSOCKS.estimateGas.swapXtoY(
+    //   ethers.utils.parseEther(value.toString()),
+    //   "0x00",
+    // )
+    // TODO: FIX THIS
+    return exchangeContractSOCKS.swapXtoY(ethers.utils.parseEther(value.toString()), "0x", {
+      gasLimit: 90003,
+      gasPrice: estimatedGasPrice
+    })
   }
 
   // sell functionality
@@ -537,6 +533,7 @@ export default function Main({ stats, status }) {
       unlock={unlock}
       validateBuy={validateBuy}
       buy={buy}
+      approveToken={approveToken}
       validateSell={validateSell}
       sell={sell}
       burn={burn}

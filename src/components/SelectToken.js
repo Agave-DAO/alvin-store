@@ -59,21 +59,35 @@ function renderOptions(token, i, selectedTokenSymbol, prefix) {
 export default function SelectToken({ selectedTokenSymbol, setSelectedTokenSymbol, prefix }) {
   return (
     <>
-      <SelectMenu
-        onChange={e => {
-          setSelectedTokenSymbol(e.target.value)
-        }}
-        className="dropdown"
-      >
-        {options.map((item, i) => renderOptions(item, i, selectedTokenSymbol, prefix))}
-      </SelectMenu>
-
-      <NoHeight>
-        <DropControl src={arrow} alt="dropdown-arrow" />
-      </NoHeight>
+      <Price>{prefix} WXDAI</Price>
     </>
   )
 }
+
+const Price = styled.div`
+  display: block;
+  font-size: 16px;
+  border-radius: 10px;
+  margin: 1rem;
+  font-family: sans-serif;
+  font-weight: 700;
+  width: 100%;
+  height: 48px;
+  max-width: 100%;
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  /* margin-bottom: 0.5rem; */
+  margin-top: 1rem;
+  appearance: none;
+  background-color: #fff;
+  background-color: ${props => props.theme.grey};
+  display: flex;
+  flex-direction: row;
+  padding-left: 1rem;
+  color: black;
+  padding-top: 14px;
+`
 
 const NoHeight = styled.div`
   height: 0px;

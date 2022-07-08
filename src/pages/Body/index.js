@@ -141,6 +141,7 @@ export default function Body({
   unlock,
   validateBuy,
   buy,
+  approveToken,
   validateSell,
   sell,
   burn,
@@ -212,6 +213,7 @@ export default function Body({
         unlock={unlock}
         validateBuy={validateBuy}
         buy={buy}
+        approveToken={approveToken}
         validateSell={validateSell}
         sell={sell}
         burn={burn}
