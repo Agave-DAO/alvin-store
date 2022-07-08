@@ -66,6 +66,7 @@ export default function Checkout({
   unlock,
   validateBuy,
   buy,
+  approveToken,
   validateSell,
   sell,
   burn,
@@ -154,6 +155,7 @@ export default function Checkout({
             unlock={unlock}
             validateBuy={validateBuy}
             buy={buy}
+            approveToken={approveToken}
             validateSell={validateSell}
             sell={sell}
             dollarize={dollarize}

@@ -6,7 +6,7 @@ import Button from './Button'
 import SelectToken from './SelectToken'
 import IncrementToken from './IncrementToken'
 import { useAppContext } from '../context'
-import { ERROR_CODES, amountFormatter, TRADE_TYPES } from '../utils'
+import { ERROR_CODES, amountFormatter, TRADE_TYPES, TOKEN_ADDRESSES } from '../utils'
 import test from './Gallery/AlvinPlushie_HD.gif'
 import icon from './Gallery/alvin.png'
 // import { ethers } from 'ethers'
@@ -65,6 +65,7 @@ export default function BuyAndSell({
   unlock,
   validateBuy,
   buy,
+  approveToken,
   validateSell,
   dollarPrice,
   pending,
@@ -95,17 +96,22 @@ export default function BuyAndSell({
   const [sellValidationState, setSellValidationState] = useState({}) // { inputValue, outputValue, minimumOutputValue }
   const [validationError, setValidationError] = useState()
   const [dollarAmountPrice, setDollarAmountPrice] = useState(dollarPrice)
+  const [approving, setApproving] = useState(true)
+  const [approveData, setApproveData] = useState()
 
   function link(hash) {
     return `https://blockscout.com/xdai/mainnet/tx/${hash}`
   }
 
-  function getText(account, buying, errorMessage, ready, pending, hash) {
+  function getText(account, approving, errorMessage, ready, pending, hash) {
     if (account !== null) {
       if (pending && hash) {
         return 'Waiting for confirmation'
       } else {
-        return 'Buy ALVIN'
+        if(approving)
+          return 'Approve ALVIN'
+        else 
+          return 'Buy ALVIN'
       }
     } else {
       return errorMessage ? errorMessage : 'Loading...'
@@ -202,7 +208,11 @@ export default function BuyAndSell({
             <USDPrice>{renderFormData()}</USDPrice>
             <SockCount>{reserveSOCKSToken && `${amountFormatter(reserveSOCKSToken, 18, 0)}/500 available`}</SockCount>
           </CurrentPrice>
-          <IncrementToken dollarPrice={dollarPrice} dollarAmountPrice={dollarAmountPrice} setDollarAmountPrice={setDollarAmountPrice} />
+          <IncrementToken
+            dollarPrice={dollarPrice}
+            dollarAmountPrice={dollarAmountPrice}
+            setDollarAmountPrice={setDollarAmountPrice}
+          />
         </InfoFrame>
       </TopFrame>
       {pending && currentTransactionHash ? (
@@ -243,7 +253,7 @@ export default function BuyAndSell({
         <ButtonFrame
           className="button"
           pending={pending}
-          text={getText(account, buying, errorMessage, ready, pending, currentTransactionHash)}
+          text={getText(account, approving, errorMessage, ready, pending, currentTransactionHash)}
           type={'cta'}
           onClick={() => {
             if (account === null) {
@@ -251,13 +261,20 @@ export default function BuyAndSell({
                 setShowConnect(true)
               })
             } else {
-              buy(buyValidationState.maximumInputValue, buyValidationState.outputValue).then(response => {
-                setCurrentTransaction(
-                  response.hash,
-                  buying ? TRADE_TYPES.BUY : TRADE_TYPES.SELL,
-                  buying ? buyValidationState.outputValue : sellValidationState.inputValue
-                )
-              })
+              if(approving) {
+                approveToken(TOKEN_ADDRESSES.WXDAI, dollarAmountPrice).then(res => {
+                  setApproveData(res)
+                  setApproving(false)
+                }).catch(console.error)
+              } else {
+                buy(dollarAmountPrice, approveData).then(response => {
+                  setCurrentTransaction(
+                    response.hash,
+                    buying ? TRADE_TYPES.BUY : TRADE_TYPES.SELL,
+                    buying ? buyValidationState.outputValue : sellValidationState.inputValue
+                  )
+                })
+              }
             }
           }}
         />
