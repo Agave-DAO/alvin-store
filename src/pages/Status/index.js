@@ -16,7 +16,7 @@ const OrderDiv = styled.div`
   margin-bottom: 1rem;
 `
 
-export default function Body({ totalSupply, ready, balanceSOCKS }) {
+export default function Body({ totalSupply, ready, balanceALVIN }) {
   const [state] = useAppContext()
   const { library, account } = useWeb3Context()
 
@@ -66,7 +66,7 @@ export default function Body({ totalSupply, ready, balanceSOCKS }) {
   } else {
     return (
       <AppWrapper overlay={state.visible}>
-        <Header totalSupply={totalSupply} ready={ready} balanceSOCKS={balanceSOCKS} setShowConnect={() => {}} />
+        <Header totalSupply={totalSupply} ready={ready} balanceALVIN={balanceALVIN} setShowConnect={() => {}} />
         <Content>
           <p>
             You can use this page to check the status of your plushies order, please bookmark it for future reference.
@@ -91,7 +91,7 @@ export default function Body({ totalSupply, ready, balanceSOCKS }) {
                           timeStyle: 'short'
                         })}
                       </li>
-                      <li>ALVIN Redeemed: {d.numberOfSocks}</li>
+                      <li>ALVIN Redeemed: {d.numberOfAlvins}</li>
                       <li>
                         Status:{' '}
                         {d.invalid

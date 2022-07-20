@@ -7,11 +7,12 @@ import FACTORY_ABI from './factory.json'
 
 import UncheckedJsonRpcSigner from './signer'
 
-const FACTORY_ADDRESS = '0x0148294C829b5fcD653cD053769732fE0439eb4F'
+export const STORE_ADDRESS = '0x0148294C829b5fcD653cD053769732fE0439eb4F'
+export const CLAIM_ADDRESS = '0xB9095eb002fdBbD2a6656AB91c367304F76d65FF'
 
 export const TOKEN_ADDRESSES = {
   ETH: 'ETH',
-  SOCKS: '0x59715D8d206b3D4748Cec55E7c2DE26F23AF45D5',
+  ALVIN: '0x59715d8d206b3d4748cec55e7c2de26f23af45d5',
   AGVE: '0x3a97704a1b25F08aa230ae53B352e2e72ef52843',
   WXDAI: '0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d'
 }
@@ -68,11 +69,11 @@ export function getAlvinClaimContract(address, library, account) {
 }
 
 export function getExchangeContract(library, account) {
-  return getContract(FACTORY_ADDRESS, EXCHANGE_ABI, library, account)
+  return getContract(STORE_ADDRESS, EXCHANGE_ABI, library, account)
 }
 
 export async function getTokenExchangeAddressFromFactory(tokenAddress, library, account) {
-  return getContract(FACTORY_ADDRESS, FACTORY_ABI, library, account)
+  return getContract(STORE_ADDRESS, FACTORY_ABI, library, account)
 }
 
 // get the ether balance of an address

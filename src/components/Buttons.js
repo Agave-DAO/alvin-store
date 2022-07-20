@@ -33,7 +33,7 @@ const ButtonFrame = styled(Button)`
 //   height: 2rem;
 // `
 
-export default function BuyButtons({ balanceSOCKS }) {
+export default function BuyButtons({ balanceALVIN }) {
   const { account } = useWeb3Context()
   const [, setState] = useAppContext()
 
@@ -45,7 +45,7 @@ export default function BuyButtons({ balanceSOCKS }) {
     <BuyButtonFrame>
       <ButtonFrame
         disabled={
-          account === null || !balanceSOCKS || balanceSOCKS.lt(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18)))
+          account === null || !balanceALVIN || balanceALVIN.lt(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(18)))
         }
         text={'Redeem'}
         type={'cta'}

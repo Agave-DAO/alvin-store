@@ -20,7 +20,7 @@ import closeDark from './Gallery/close_dark.svg'
 import Confetti from 'react-dom-confetti'
 
 import emailjs from '@emailjs/browser'
-import { TOKEN_ADDRESSES } from '../utils'
+import { TOKEN_ADDRESSES, CLAIM_ADDRESS } from '../utils'
 
 const config = {
   angle: 90,
@@ -53,7 +53,7 @@ export function Controls({ closeCheckout, theme, type }) {
 
 export default function Redeem({
   burn,
-  balanceSOCKS,
+  balanceALVIN,
   balance,
   ready,
   unlock,
@@ -115,12 +115,12 @@ export default function Redeem({
             <ImgStyle src={test} alt="Logo" hasPickedAmount={hasPickedAmount} />
             <InfoFrame pending={pending}>
               <Owned>
-                <SockCount>You own {balanceSOCKS && `${amountFormatter(balanceSOCKS, 18, 0)}`}</SockCount>
-                <p>Redeem SOCKS</p>
+                <AlvinCount>You own {balanceALVIN && `${amountFormatter(balanceALVIN, 18, 0)}`}</AlvinCount>
+                <p>Redeem ALVIN</p>
               </Owned>
               <IncrementToken
-                initialValue={Number(amountFormatter(balanceSOCKS, 18, 0))}
-                max={Number(amountFormatter(balanceSOCKS, 18, 0))}
+                initialValue={Number(amountFormatter(balanceALVIN, 18, 0))}
+                max={Number(amountFormatter(balanceALVIN, 18, 0))}
                 setApproving={setApproving}
               />
             </InfoFrame>
@@ -213,12 +213,12 @@ export default function Redeem({
             back
           </Back>
           <Count>2/3</Count>
-          <CheckoutPrompt>BURN THE SOCKS?</CheckoutPrompt> */}
+          <CheckoutPrompt>BURN THE ALVIN?</CheckoutPrompt> */}
           <ButtonFrame
             className="button"
             disabled={pending}
             pending={pending}
-            // text={pending ? `Waiting for confirmation...` : `Redeem ${numberBurned} SOCKS`}
+            // text={pending ? `Waiting for confirmation...` : `Redeem ${numberBurned} ALVIN`}
             text={
               approving
                 ? `Approve ${numberBurned} ALVIN`
@@ -229,7 +229,7 @@ export default function Redeem({
             type={'cta'}
             onClick={() => {
               if (approving) {
-                approveToken(TOKEN_ADDRESSES.SOCKS, numberBurned)
+                approveToken(TOKEN_ADDRESSES.ALVIN, CLAIM_ADDRESS, numberBurned)
                   .then(res => {
                     setApproving(false)
                   })
@@ -433,7 +433,7 @@ const ImgStyle = styled.img`
   box-sizing: border-box;
   border-radius: ${props => (props.hasPickedAmount ? '20px' : '30px')};
 `
-const SockCount = styled.span`
+const AlvinCount = styled.span`
   color: #aeaeae;
   font-weight: 400;
   font-size: 14px;

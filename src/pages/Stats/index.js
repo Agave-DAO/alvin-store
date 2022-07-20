@@ -5,12 +5,12 @@ import { Header } from '../Body'
 import { amountFormatter } from '../../utils'
 import icon from '../../components/Gallery/alvin-nobg.png'
 
-export default function Body({ totalSupply, reserveSOCKSToken, ready, balanceSOCKS }) {
+export default function Body({ totalSupply, reserveALVINToken, ready, balanceALVIN }) {
   const [state] = useAppContext()
 
   return (
     <AppWrapper overlay={state.visible}>
-      <Header totalSupply={totalSupply} ready={ready} balanceSOCKS={balanceSOCKS} setShowConnect={() => {}} />
+      <Header totalSupply={totalSupply} ready={ready} balanceALVIN={balanceALVIN} setShowConnect={() => {}} />
       <Content>
         <Title>ALVIN Stats</Title>
         <Description>
@@ -36,7 +36,7 @@ export default function Body({ totalSupply, reserveSOCKSToken, ready, balanceSOC
             </span>
             ALVIN Pool
           </p>
-          <p>{amountFormatter(reserveSOCKSToken, 18, 0)}</p>
+          <p>{amountFormatter(reserveALVINToken, 18, 0)}</p>
         </Description>
         <Shim />
         <Footer>

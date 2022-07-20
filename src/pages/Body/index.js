@@ -12,7 +12,7 @@ import { amountFormatter } from '../../utils'
 
 import icon from '../../components/Gallery/alvin.png'
 
-export function Header({ totalSupply, ready, balanceSOCKS, setShowConnect }) {
+export function Header({ totalSupply, ready, balanceALVIN, setShowConnect }) {
   const { account, setConnector } = useWeb3Context()
 
   function handleAccount() {
@@ -22,10 +22,10 @@ export function Header({ totalSupply, ready, balanceSOCKS, setShowConnect }) {
   }
 
   return (
-    <HeaderFrame balanceSOCKS={balanceSOCKS}>
+    <HeaderFrame balanceALVIN={balanceALVIN}>
       <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
         <Unicorn>
-          <img aria-label="alvin" role="img" src={icon} style={{height: "16px", marginBottom:"-2px"}}/>
+          <img aria-label="alvin" role="img" src={icon} style={{height: "1.5rem", marginBottom:"-2px"}}/>
           {' '}
           Alvin
         </Unicorn>
@@ -41,18 +41,18 @@ export function Header({ totalSupply, ready, balanceSOCKS, setShowConnect }) {
             </Burned>
           </Link>
         )}
-        <Account onClick={() => handleAccount()} balanceSOCKS={balanceSOCKS}>
+        <Account onClick={() => handleAccount()} balanceALVIN={balanceALVIN}>
           {account ? (
-            balanceSOCKS > 0 ? (
-              <SockCount>{balanceSOCKS && `${amountFormatter(balanceSOCKS, 18, 0)}`} ALVIN</SockCount>
+            balanceALVIN > 0 ? (
+              <AlvinCount>{balanceALVIN && `${amountFormatter(balanceALVIN, 18, 0)}`} ALVIN</AlvinCount>
             ) : (
-              <SockCount>{account.slice(0, 6)}...</SockCount>
+              <AlvinCount>{account.slice(0, 6)}...</AlvinCount>
             )
           ) : (
-            <SockCount>Connect Wallet</SockCount>
+            <AlvinCount>Connect Wallet</AlvinCount>
           )}
 
-          <Status balanceSOCKS={balanceSOCKS} ready={ready} account={account} />
+          <Status balanceALVIN={balanceALVIN} ready={ready} account={account} />
         </Account>
       </div>
     </HeaderFrame>
@@ -65,7 +65,7 @@ const HeaderFrame = styled.div`
   box-sizing: border-box;
   margin: 0px;
   font-size: 1.25rem;
-  color: ${props => (props.balanceSOCKS ? props.theme.primary : 'white')};
+  color: ${props => (props.balanceALVIN ? props.theme.primary : 'white')};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -73,16 +73,16 @@ const HeaderFrame = styled.div`
 `
 
 const Account = styled.div`
-  background-color: ${props => (props.balanceSOCKS ? '#f1f2f6' : props.theme.blue)};
+  background-color: ${props => (props.balanceALVIN ? '#f1f2f6' : props.theme.blue)};
   padding: 0.75rem;
   border-radius: 6px;
-  cursor: ${props => (props.balanceSOCKS ? 'auto' : 'pointer')};
+  cursor: ${props => (props.balanceALVIN ? 'auto' : 'pointer')};
 
   transform: scale(1);
   transition: transform 0.3s ease;
 
   :hover {
-    transform: ${props => (props.balanceSOCKS ? 'scale(1)' : 'scale(1.02)')};
+    transform: ${props => (props.balanceALVIN ? 'scale(1)' : 'scale(1.02)')};
     text-decoration: underline;
   }
 `
@@ -113,7 +113,7 @@ const HideMobile = styled.span`
   }
 `
 
-const SockCount = styled.p`
+const AlvinCount = styled.p`
   /* color: #6c7284; */
   font-weight: 500;
   margin: 0px;
@@ -122,7 +122,7 @@ const SockCount = styled.p`
 `
 
 const Status = styled.div`
-  display: ${props => (props.balanceSOCKS ? 'initial' : 'none')};
+  display: ${props => (props.balanceALVIN ? 'initial' : 'none')};
   width: 12px;
   height: 12px;
   border-radius: 100%;
@@ -147,8 +147,8 @@ export default function Body({
   burn,
   dollarize,
   dollarPrice,
-  balanceSOCKS,
-  reserveSOCKSToken,
+  balanceALVIN,
+  reserveALVINToken,
   totalSupply
 }) {
   const { account } = useWeb3Context()
@@ -169,11 +169,11 @@ export default function Body({
         totalSupply={totalSupply}
         ready={ready}
         dollarPrice={dollarPrice}
-        balanceSOCKS={balanceSOCKS}
+        balanceALVIN={balanceALVIN}
         setShowConnect={setShowConnect}
       />
       <Content>
-        <Card totalSupply={totalSupply} dollarPrice={dollarPrice} reserveSOCKSToken={reserveSOCKSToken} />{' '}
+        <Card totalSupply={totalSupply} dollarPrice={dollarPrice} reserveALVINToken={reserveALVINToken} />{' '}
         <Info>
           <div style={{ marginBottom: '4px' }}>Buy and sell real plushies with digital currency.</div>
           <div style={{ marginBottom: '4px' }}>
@@ -203,8 +203,8 @@ export default function Body({
             </a>
           </SubInfo> */}
         </Info>
-        <BuyButtons balanceSOCKS={balanceSOCKS} />
-        <RedeemButton balanceSOCKS={balanceSOCKS} />
+        <BuyButtons balanceALVIN={balanceALVIN} />
+        <RedeemButton balanceALVIN={balanceALVIN} />
       </Content>
       <Checkout
         selectedTokenSymbol={selectedTokenSymbol}
@@ -217,9 +217,9 @@ export default function Body({
         validateSell={validateSell}
         sell={sell}
         burn={burn}
-        balanceSOCKS={balanceSOCKS}
+        balanceALVIN={balanceALVIN}
         dollarPrice={dollarPrice}
-        reserveSOCKSToken={reserveSOCKSToken}
+        reserveALVINToken={reserveALVINToken}
         dollarize={dollarize}
         showConnect={showConnect}
         setShowConnect={setShowConnect}
@@ -244,8 +244,6 @@ const AppWrapper = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
-  overflow: ${props => (props.overlay ? 'hidden' : 'scroll')};
-  scroll-behavior: smooth;
   position: ${props => (props.overlay ? 'fixed' : 'initial')};
 `
 
@@ -290,5 +288,5 @@ const Unicorn = styled.p`
   color: ${props => props.theme.uniswapPink};
   font-weight: 600;
   margin: auto 0px;
-  font-size: 16px;
+  font-size: 1.5rem;
 `

@@ -6,7 +6,7 @@ import Button from './Button'
 import SelectToken from './SelectToken'
 import IncrementToken from './IncrementToken'
 import { useAppContext } from '../context'
-import { ERROR_CODES, amountFormatter, TRADE_TYPES, TOKEN_ADDRESSES } from '../utils'
+import { ERROR_CODES, amountFormatter, TRADE_TYPES, TOKEN_ADDRESSES, STORE_ADDRESS, getTokenAllowance } from '../utils'
 import test from './Gallery/AlvinPlushie_HD.gif'
 import icon from './Gallery/alvin.png'
 // import { ethers } from 'ethers'
@@ -69,7 +69,7 @@ export default function BuyAndSell({
   validateSell,
   dollarPrice,
   pending,
-  reserveSOCKSToken,
+  reserveALVINToken,
   sell,
   dollarize,
   setCurrentTransaction,
@@ -204,7 +204,7 @@ export default function BuyAndSell({
           <CurrentPrice>
             {/* {dollarPrice && `$${amountFormatter(dollarPrice, 18, 2)} USD`} */}
             <USDPrice>{renderFormData()}</USDPrice>
-            <SockCount>{reserveSOCKSToken && `${amountFormatter(reserveSOCKSToken, 18, 0)}/500 available`}</SockCount>
+            <AlvinCount>{reserveALVINToken && `${amountFormatter(reserveALVINToken, 18, 0)}/500 available`}</AlvinCount>
           </CurrentPrice>
           <IncrementToken
             dollarPrice={dollarPrice}
@@ -262,7 +262,7 @@ export default function BuyAndSell({
               })
             } else {
               if (approving) {
-                approveToken(TOKEN_ADDRESSES.WXDAI, dollarAmountPrice)
+                approveToken(TOKEN_ADDRESSES.WXDAI, STORE_ADDRESS, dollarAmountPrice)
                   .then(res => {
                     setApproveData(res)
                     setApproving(false)
@@ -325,7 +325,7 @@ const ImgStyle = styled.img`
   padding: 2rem 0 2rem 0;
   box-sizing: border-box;
 `
-const SockCount = styled.span`
+const AlvinCount = styled.span`
   color: #aeaeae;
   font-weight: 400;
   margin: 0px;

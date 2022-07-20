@@ -69,7 +69,7 @@ export async function handler(event) {
     await client.query(
       q.Create(q.Collection('addresses'), {
         data: {
-          numberOfSocks: Number(numberBurned),
+          numberOfAlvins: Number(numberBurned),
           timestamp: Number(timestamp),
           addressPhysical: {
             name,

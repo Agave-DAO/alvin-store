@@ -7,24 +7,24 @@ import { amountFormatter } from '../utils'
 
 import Gallery from './Gallery'
 
-export default function Card({ totalSupply, dollarPrice, reserveSOCKSToken }) {
+export default function Card({ totalSupply, dollarPrice, reserveALVINToken }) {
   return (
     <Tilt
       style={{ background: '#000', borderRadius: '8px' }}
       options={{ scale: 1.01, max: 10, glare: true, 'max-glare': 1, speed: 1000 }}
     >
       <CardWrapper>
-        <Title>ALVIN Edition 0</Title>
+        <Title>ALVIN Plushie</Title>
         <SubTitle>$ALVIN</SubTitle>
         <Gallery />
         <MarketData>
           <span>
             <CurrentPrice>{dollarPrice ? `$${amountFormatter(dollarPrice, 0, 0)} USD` : '$0.00'}</CurrentPrice>
-            <SockCount>
-              {reserveSOCKSToken && totalSupply
-                ? `${amountFormatter(reserveSOCKSToken, 18, 0)}/${totalSupply} available`
+            <AlvinCount>
+              {reserveALVINToken && totalSupply
+                ? `${amountFormatter(reserveALVINToken, 18, 0)}/${totalSupply} available`
                 : ''}
-            </SockCount>
+            </AlvinCount>
           </span>
           <Link to="/stats">
             <Info>
@@ -76,7 +76,7 @@ const SubTitle = styled.p`
   font-feature-settings: 'tnum' on, 'onum' on;
 `
 
-const SockCount = styled.p`
+const AlvinCount = styled.p`
   color: #aeaeae;
   font-weight: 400;
   margin: 0px;

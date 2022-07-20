@@ -363,7 +363,7 @@ export default function Main({ stats, status }) {
         ethers.utils.parseEther(value.toString())
       )
 
-      return tokenContractWXDAI.approve(contractAddress, ethers.utils.parseEther(value.toString()), {
+      return tokenContractWXDAI.approve(address, ethers.utils.parseEther(value.toString()), {
         gasLimit: calculateGasMargin(estimatedGasLimit, GAS_MARGIN),
         gasPrice: estimatedGasPrice
       })
