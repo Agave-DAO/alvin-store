@@ -53,7 +53,7 @@ export default function RedeemButton({ balanceALVIN }) {
         disabled={balanceALVIN > 0 ? false : true}
         text={'Sell'}
         type={'secondary'}
-        onClick={() => window.open("https://app.honeyswap.org/#/swap?outputCurrency=0x50dbde932a94b0c23d27cdd30fbc6b987610c831")}
+        onClick={() => window.open("https://app.honeyswap.org/#/swap?outputCurrency=0x59715D8d206b3D4748Cec55E7c2DE26F23AF45D5")}
       />
     </BuyButtonFrame>
   )
