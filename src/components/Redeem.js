@@ -78,15 +78,45 @@ export default function Redeem({
 
   const pending = !!transactionHash
 
+  const sendEmail = () => {
+    emailjs
+      .send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        window.localStorage,
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        function(response) {
+          console.log('SUCCESS!', response.status, response.text)
+        },
+        function(error) {
+          console.log('FAILED...', error)
+        }
+      )
+    window.localStorage.clear()
+  }
+
   useEffect(() => {
     if (transactionHash) {
-      library.waitForTransaction(transactionHash).then(() => {
-        setLastTransactionHash(transactionHash)
-        setTransactionHash('')
-        setHasBurnt(true)
+      library.waitForTransaction(transactionHash, 2).then(() => {
+        library.getTransactionReceipt(transactionHash).then(receipt => {
+          if (receipt.status === 1) {
+            setLastTransactionHash(transactionHash)
+            setTransactionHash('')
+            if (approving) {
+              setApproving(false)
+            } else {
+              sendEmail()
+              setHasBurnt(true)
+            }
+          } else {
+            setTransactionHash('')
+          }
+        })
       })
     }
-  })
+  }, [transactionHash])
 
   function link(hash) {
     return `https://blockscout.com/xdai/mainnet/tx/${hash}`
@@ -230,36 +260,17 @@ export default function Redeem({
             onClick={() => {
               if (approving) {
                 approveToken(TOKEN_ADDRESSES.ALVIN, CLAIM_ADDRESS, numberBurned)
-                  .then(res => {
-                    setApproving(false)
+                  .then(response => {
+                    setTransactionHash(response.hash)
                   })
                   .catch(console.error)
               } else {
                 burn(numberBurned.toString())
                   .then(response => {
-                    setTransactionHash(response.hash)
-
                     window.localStorage.setItem('numberBurned', numberBurned)
                     window.localStorage.setItem('tx', response.hash)
                     window.localStorage.setItem('txLink', link(response.hash))
-
-                    emailjs
-                      .send(
-                        process.env.REACT_APP_EMAILJS_SERVICE_ID,
-                        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-                        window.localStorage,
-                        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
-                      )
-                      .then(
-                        function(response) {
-                          console.log('SUCCESS!', response.status, response.text)
-                        },
-                        function(error) {
-                          console.log('FAILED...', error)
-                        }
-                      )
-
-                    window.localStorage.clear()
+                    setTransactionHash(response.hash)
                   })
                   .catch(error => {
                     console.error(error)
