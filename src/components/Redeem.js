@@ -103,16 +103,14 @@ export default function Redeem({
         library.getTransactionReceipt(transactionHash).then(receipt => {
           if (receipt.status === 1) {
             setLastTransactionHash(transactionHash)
-            setTransactionHash('')
             if (approving) {
               setApproving(false)
             } else {
               sendEmail()
               setHasBurnt(true)
             }
-          } else {
-            setTransactionHash('')
           }
+          setTransactionHash('')
         })
       })
     }
