@@ -5,12 +5,12 @@ import { Header } from '../Body'
 import { amountFormatter } from '../../utils'
 import icon from '../../components/Gallery/alvin-nobg.png'
 
-export default function Body({ totalSupply, reserveALVINToken, ready, balanceALVIN }) {
+export default function Body({alvinRedeemed, totalSupply, reserveALVINToken, ready, balanceALVIN }) {
   const [state] = useAppContext()
 
   return (
     <AppWrapper overlay={state.visible}>
-      <Header totalSupply={totalSupply} ready={ready} balanceALVIN={balanceALVIN} setShowConnect={() => {}} />
+      <Header alvinRedeemed={alvinRedeemed} ready={ready} balanceALVIN={balanceALVIN} setShowConnect={() => {}} />
       <Content>
         <Title>ALVIN Stats</Title>
         <Description>
@@ -27,7 +27,7 @@ export default function Body({ totalSupply, reserveALVINToken, ready, balanceALV
             </span>
             Redeemed ALVIN
           </p>
-          <p>{500 - totalSupply}</p>
+          <p>{alvinRedeemed}</p>
         </Description>
         <Description>
           <p>
@@ -44,7 +44,7 @@ export default function Body({ totalSupply, reserveALVINToken, ready, balanceALV
           <br />
           <br />
           <a
-            href="https://agave.finance/alvin/"
+            href="https://agavedev.notion.site/Alvin-57110889628644d883b6b67c510db70c"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -82,7 +82,6 @@ const AppWrapper = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
-  overflow: ${props => (props.overlay ? 'hidden' : 'scroll')};
   scroll-behavior: smooth;
   position: ${props => (props.overlay ? 'fixed' : 'initial')};
 `

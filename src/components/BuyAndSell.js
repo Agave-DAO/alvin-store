@@ -8,7 +8,7 @@ import IncrementToken from './IncrementToken'
 import { useAppContext } from '../context'
 import { ERROR_CODES, amountFormatter, TRADE_TYPES, TOKEN_ADDRESSES, STORE_ADDRESS, getTokenAllowance } from '../utils'
 import test from './Gallery/AlvinPlushie_HD.gif'
-import icon from './Gallery/alvin.png'
+import icon from './Gallery/alvin-nobg.png'
 // import { ethers } from 'ethers'
 
 export function useCount() {
@@ -100,7 +100,7 @@ export default function BuyAndSell({
   const [approveData, setApproveData] = useState()
 
   function link(hash) {
-    return `https://blockscout.com/xdai/mainnet/tx/${hash}`
+    return `https://gnosisscan.io/tx/${hash}`
   }
 
   function getText(account, approving, errorMessage, ready, pending, hash) {

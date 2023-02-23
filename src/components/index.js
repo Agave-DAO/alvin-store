@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { useWeb3Context } from 'web3-react'
 import { ethers } from 'ethers'
 
-import { TOKEN_SYMBOLS, TOKEN_ADDRESSES, ERROR_CODES } from '../../utils'
+import { TOKEN_SYMBOLS, TOKEN_ADDRESSES, ERROR_CODES, CLAIM_ADDRESS } from '../../utils'
 import {
   useTokenContract,
   useExchangeContract,
@@ -11,7 +11,8 @@ import {
   useExchangeReserves,
   useExchangeAllowance,
   useTotalSupply,
-  useAlvinClaimContract
+  useAlvinClaimContract,
+  useRedeemedBalance
 } from '../../hooks'
 import Body from '../Body'
 import Stats from '../Stats'
@@ -170,6 +171,7 @@ export default function Main({ stats, status }) {
   const balanceETH = useAddressBalance(account, TOKEN_ADDRESSES.ETH)
   const balanceALVIN = useAddressBalance(account, TOKEN_ADDRESSES.ALVIN)
   const balanceSelectedToken = useAddressBalance(account, TOKEN_ADDRESSES[selectedTokenSymbol])
+  const alvinRedeemed = useRedeemedBalance()
 
   // totalsupply
   const totalSupply = useTotalSupply(tokenContractALVIN)
@@ -191,6 +193,7 @@ export default function Main({ stats, status }) {
   const { reserveETH: reserveSelectedTokenETH, reserveToken: reserveSelectedTokenToken } = useExchangeReserves(
     TOKEN_ADDRESSES[selectedTokenSymbol]
   )
+  
 
   const reserveDAIETH = useAddressBalance(exchangeContractDAI && exchangeContractDAI.address, TOKEN_ADDRESSES.ETH)
   const reserveDAIToken = useAddressBalance(exchangeContractDAI && exchangeContractDAI.address, TOKEN_ADDRESSES.DAI)
@@ -203,6 +206,7 @@ export default function Main({ stats, status }) {
     (selectedTokenSymbol === 'ETH' || account === null || allowanceSelectedToken) &&
     (account === null || balanceETH) &&
     (account === null || balanceALVIN) &&
+    (CLAIM_ADDRESS === null || alvinRedeemed) &&
     (account === null || balanceSelectedToken) &&
     reserveALVINETH &&
     reserveALVINToken &&
@@ -527,9 +531,9 @@ export default function Main({ stats, status }) {
   }
 
   return stats ? (
-    <Stats reserveALVINToken={reserveALVINToken} totalSupply={totalSupply} ready={ready} balanceALVIN={balanceALVIN} />
+    <Stats reserveALVINToken={reserveALVINToken} totalSupply={totalSupply} ready={ready} balanceALVIN={balanceALVIN} alvinRedeemed={alvinRedeemed}/>
   ) : status ? (
-    <Status totalSupply={totalSupply} ready={ready} balanceALVIN={balanceALVIN} />
+    <Status totalSupply={totalSupply} ready={ready} balanceALVIN={balanceALVIN} alvinRedeemed={alvinRedeemed}/>
   ) : (
     <Body
       selectedTokenSymbol={selectedTokenSymbol}
@@ -547,6 +551,7 @@ export default function Main({ stats, status }) {
       balanceALVIN={balanceALVIN}
       reserveALVINToken={reserveALVINToken}
       totalSupply={totalSupply}
+      alvinRedeemed={alvinRedeemed}
     />
   )
 }

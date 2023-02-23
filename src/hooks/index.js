@@ -10,7 +10,8 @@ import {
   getTokenBalance,
   getTokenAllowance,
   TOKEN_ADDRESSES,
-  getAlvinClaimContract
+  getAlvinClaimContract,
+  CLAIM_ADDRESS
 } from '../utils'
 import { utils } from 'ethers'
 
@@ -44,18 +45,17 @@ export function useTokenContract(tokenAddress, withSignerIfPossible = true) {
 
 export function useAlvinClaimContract(withSignerIfPossible = true) {
   const { library, account } = useWeb3Context()
-  const address = "0xB9095eb002fdBbD2a6656AB91c367304F76d65FF"
 
   return useMemo(() => {
     try {
-      return getAlvinClaimContract(address, library, withSignerIfPossible ? account : undefined)
+      return getAlvinClaimContract(CLAIM_ADDRESS, library, withSignerIfPossible ? account : undefined)
     } catch {
       return null
     }
-  }, [account, library, address, withSignerIfPossible])
+  }, [account, library, CLAIM_ADDRESS, withSignerIfPossible])
 }
 
-export function useExchangeContract(tokenAddress, withSignerIfPossible = true) {
+export function useExchangeContract(withSignerIfPossible = true) {
   const { library, account } = useWeb3Context()
 
   return useMemo(() => {
@@ -65,6 +65,42 @@ export function useExchangeContract(tokenAddress, withSignerIfPossible = true) {
       return null
     }
   }, [ library, withSignerIfPossible, account])
+}
+
+export function useRedeemedBalance() {
+  const { library } = useWeb3Context()
+
+  const [redeemed, setRedeemed] = useState()
+  const tokenAddress = TOKEN_ADDRESSES.ALVIN;
+  const updateRedeemed = useCallback(() => {
+    if (isAddress(CLAIM_ADDRESS) && (tokenAddress === 'ETH' || isAddress(tokenAddress))) {
+      let stale = false
+
+      getTokenBalance(tokenAddress, CLAIM_ADDRESS, library)
+        .then(value => {
+          if (!stale) {
+            setRedeemed(value)
+          }
+        })
+        .catch(() => {
+          if (!stale) {
+            setRedeemed(null)
+          }
+        })
+      return () => {
+        stale = true
+        setRedeemed()
+      }
+    }
+  }, [CLAIM_ADDRESS, library, tokenAddress])
+
+  useEffect(() => {
+    return updateRedeemed()
+  }, [updateRedeemed])
+
+  useBlockEffect(updateRedeemed)
+
+  return redeemed && Math.round(Number(utils.formatEther(redeemed)))
 }
 
 export function useAddressBalance(address, tokenAddress) {
@@ -100,7 +136,7 @@ export function useAddressBalance(address, tokenAddress) {
 
   useBlockEffect(updateBalance)
 
-  return balance
+  return balance 
 }
 
 export function useTotalSupply(contract) {

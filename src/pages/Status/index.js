@@ -16,7 +16,7 @@ const OrderDiv = styled.div`
   margin-bottom: 1rem;
 `
 
-export default function Body({ totalSupply, ready, balanceALVIN }) {
+export default function Body({ alvinRedeemed, totalSupply, ready, balanceALVIN }) {
   const [state] = useAppContext()
   const { library, account } = useWeb3Context()
 
@@ -66,7 +66,7 @@ export default function Body({ totalSupply, ready, balanceALVIN }) {
   } else {
     return (
       <AppWrapper overlay={state.visible}>
-        <Header totalSupply={totalSupply} ready={ready} balanceALVIN={balanceALVIN} setShowConnect={() => {}} />
+        <Header alvinRedeemed={alvinRedeemed} totalSupply={totalSupply} ready={ready} balanceALVIN={balanceALVIN} setShowConnect={() => {}} />
         <Content>
           <p>
             You can use this page to check the status of your plushies order, please bookmark it for future reference.
@@ -119,7 +119,7 @@ export default function Body({ totalSupply, ready, balanceALVIN }) {
                     {d.NFTTransactionHash && (
                       <EtherscanLink
                         style={{ marginBottom: '.5rem' }}
-                        href={`https://blockscout.com/xdai/mainnet/tx/${d.NFTTransactionHash}`}
+                        href={`https://gnosisscan.io/tx/${d.NFTTransactionHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -156,7 +156,6 @@ const AppWrapper = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
-  overflow: ${props => (props.overlay ? 'hidden' : 'scroll')};
   scroll-behavior: smooth;
   position: ${props => (props.overlay ? 'fixed' : 'initial')};
 `

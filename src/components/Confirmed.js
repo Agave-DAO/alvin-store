@@ -50,7 +50,7 @@ export default function Confirmed({ hash, type, amount, clearLastTransaction, cl
   const [state, setState] = useAppContext()
 
   function link(hash) {
-    return `https://blockscout.com/xdai/mainnet/tx/${hash}`
+    return `https://gnosisscan.io/tx/${hash}`
   }
 
   useEffect(() => {

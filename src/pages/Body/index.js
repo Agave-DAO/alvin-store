@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import { useWeb3Context } from 'web3-react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { useAppContext } from '../../context'
 import Card from '../../components/Card'
@@ -10,11 +10,11 @@ import RedeemButton from '../../components/RedeemButton'
 import Checkout from '../../components/Checkout'
 import { amountFormatter } from '../../utils'
 
-import icon from '../../components/Gallery/alvin.png'
+import icon from '../../components/Gallery/alvin-nobg.png'
 
-export function Header({ totalSupply, ready, balanceALVIN, setShowConnect }) {
+export function Header({ alvinRedeemed, ready, balanceALVIN, setShowConnect }) {
   const { account, setConnector } = useWeb3Context()
-
+  const location = useLocation();
   function handleAccount() {
     setConnector('Injected', { suppressAndThrowErrors: true }).catch(error => {
       setShowConnect(true)
@@ -25,19 +25,17 @@ export function Header({ totalSupply, ready, balanceALVIN, setShowConnect }) {
     <HeaderFrame balanceALVIN={balanceALVIN}>
       <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
         <Unicorn>
-          <img aria-label="alvin" role="img" src={icon} style={{height: "1.5rem", marginBottom:"-2px"}}/>
-          {' '}
-          Alvin
+          <img aria-label="alvin" role="img" src={icon} style={{height: "3rem", marginBottom:"-2px", }}/>
         </Unicorn>
       </Link>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        {totalSupply && (
-          <Link to="/stats" style={{ textDecoration: 'none' }}>
+        {alvinRedeemed && (
+          <Link to={(location.pathname == "/stats")?"/":"/stats"} style={{ textDecoration: 'none' }}>
             <Burned>
               <span role="img" aria-label="fire">
                 🔥
               </span>{' '}
-              {500 - totalSupply} <HideMobile>redeemed</HideMobile>
+              {alvinRedeemed} <HideMobile>redeemed</HideMobile>
             </Burned>
           </Link>
         )}
@@ -77,9 +75,10 @@ const Account = styled.div`
   padding: 0.75rem;
   border-radius: 6px;
   cursor: ${props => (props.balanceALVIN ? 'auto' : 'pointer')};
-
   transform: scale(1);
   transition: transform 0.3s ease;
+  line-height: 1;
+  
 
   :hover {
     transform: ${props => (props.balanceALVIN ? 'scale(1)' : 'scale(1.02)')};
@@ -88,7 +87,7 @@ const Account = styled.div`
 `
 
 const Burned = styled.div`
-  background-color: none;
+  background: #0B464F;
   border: 1px solid red;
   margin-right: 1rem;
   padding: 0.75rem;
@@ -104,7 +103,8 @@ const Burned = styled.div`
 
   font-weight: 500;
   font-size: 14px;
-  color: red;
+  color: #FFFFFF;
+  ;
 `
 
 const HideMobile = styled.span`
@@ -149,7 +149,8 @@ export default function Body({
   dollarPrice,
   balanceALVIN,
   reserveALVINToken,
-  totalSupply
+  totalSupply,
+  alvinRedeemed
 }) {
   const { account } = useWeb3Context()
   const [currentTransaction, _setCurrentTransaction] = useState({})
@@ -166,7 +167,7 @@ export default function Body({
   return (
     <AppWrapper overlay={state.visible}>
       <Header
-        totalSupply={totalSupply}
+        alvinRedeemed={alvinRedeemed}
         ready={ready}
         dollarPrice={dollarPrice}
         balanceALVIN={balanceALVIN}
@@ -287,6 +288,7 @@ const OrderStatusLink = styled.p`
 const Unicorn = styled.p`
   color: ${props => props.theme.uniswapPink};
   font-weight: 600;
-  margin: auto 0px;
+  margin: 1rem;
   font-size: 1.5rem;
+  position:fixed;
 `

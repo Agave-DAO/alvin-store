@@ -5,13 +5,16 @@ export default createGlobalStyle`
   @import url('https://rsms.me/inter/inter.css');
   
   body {
+    min-height:100vh;
     padding: 0;
     margin: 0;
     font-family: sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: Inter, sans-serif;
-    /* background-color: #F1F2F6; */
+    background: linear-gradient(188.87deg, #019D8B 4.99%, #122C34 62.79%),
+    radial-gradient(64.22% 34.97% at 0% 0%, rgba(188, 242, 152, 0.3) 0%, rgba(188, 242, 152, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    overflow:hidden;
   }
 `
 

@@ -9,6 +9,7 @@ import UncheckedJsonRpcSigner from './signer'
 
 export const STORE_ADDRESS = '0x0148294C829b5fcD653cD053769732fE0439eb4F'
 export const CLAIM_ADDRESS = '0xB9095eb002fdBbD2a6656AB91c367304F76d65FF'
+export const HONEYSWAP_ADDRESS = '0xb9f4ad524F1d123888228b029B7566d7746a3186'
 
 export const TOKEN_ADDRESSES = {
   ETH: 'ETH',

@@ -28,7 +28,7 @@ const Desc = styled.p`
 `
 
 export function link(hash) {
-  return `https://blockscout.com/xdai/mainnet/tx/${hash}`
+  return `https://gnosisscan.io/tx/${hash}`
 }
 
 export const EtherscanLink = styled.a`

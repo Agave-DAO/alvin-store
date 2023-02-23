@@ -41,9 +41,9 @@ export default function Web3ReactManager({ children }) {
 
   if (error) {
     console.error(error)
-    return <Message>Connection Error.</Message>
+    return <Message>Connection Error.<br/><br/>Make sure you are connected to a Gnosis Chain RPC</Message>
   } else if (!active) {
-    return showLoader ? <Message>Initializing...</Message> : null
+    return showLoader ? <Message>Initializing...<br/><br/>Make sure you are connected to a Gnosis Chain RPC</Message> : null
   } else {
     return children
   }

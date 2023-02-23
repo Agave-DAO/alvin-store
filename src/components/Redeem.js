@@ -39,7 +39,7 @@ export function Controls({ closeCheckout, theme, type }) {
   return (
     <FrameControls>
       <Unicorn theme={theme}>
-        <img aria-label="alvin" role="img" src={icon} style={{ height: '16px', marginBottom: '-2px' }} /> Pay{' '}
+        <img aria-label="alvin" role="img" src={icon} style={{ height: '16px', marginBottom: '-2px' }} /> Redeem{' '}
         <span style={{ color: '#737373' }}>
           {' '}
           {type === 'confirm' ? ' / Order Details' : type === 'shipping' ? ' / Shipping Details' : ''}
@@ -117,7 +117,7 @@ export default function Redeem({
   }, [transactionHash])
 
   function link(hash) {
-    return `https://blockscout.com/xdai/mainnet/tx/${hash}`
+    return `https://gnosisscan.io/tx/${hash}`
   }
 
   function renderContent() {
@@ -175,7 +175,7 @@ export default function Redeem({
               <ImgStyle src={test} alt="Logo" hasPickedAmount={hasPickedAmount} />
               <OwnedShipping>
                 <p>{state.count} ALVIN</p>
-                <p style={{ fontSize: '20px', fontWeight: '400', color: '#AEAEAE' }}>Small little plushie</p>
+                <p style={{ fontSize: '20px', fontWeight: '400', color: '#AEAEAE' }}>Limitied edition</p>
               </OwnedShipping>
             </InfoFrame>
           </TopFrame>
