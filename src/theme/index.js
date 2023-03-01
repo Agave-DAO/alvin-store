@@ -14,7 +14,9 @@ export default createGlobalStyle`
     font-family: Inter, sans-serif;
     background: linear-gradient(188.87deg, #019D8B 4.99%, #122C34 62.79%),
     radial-gradient(64.22% 34.97% at 0% 0%, rgba(188, 242, 152, 0.3) 0%, rgba(188, 242, 152, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
-    overflow:hidden;
+  }
+  body::-webkit-scrollbar {
+    width: 1px;               /* width of the entire scrollbar */
   }
 `
 

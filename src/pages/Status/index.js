@@ -105,14 +105,7 @@ export default function Body({ alvinRedeemed, totalSupply, ready, balanceALVIN }
                       {d.shippingId && (
                         <li>
                           Shipping Id:{' '}
-                          <a
-                            href={`https://www.google.com/search?q=${d.shippingId}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ textDecoration: 'none' }}
-                          >
                             {d.shippingId}
-                          </a>
                         </li>
                       )}
                     </ul>
@@ -133,7 +126,7 @@ export default function Body({ alvinRedeemed, totalSupply, ready, balanceALVIN }
           <p style={{ fontSize: '.75rem', textAlign: 'center' }}>
             Problem with an order?{' '}
             <a
-              href={`mailto:contact@uniswap.org?Subject=Unipig%20Order%20for%20${account}`}
+              href={`mailto:alvinshipments@gmail.com?Subject=Alvin%20Order%20for%20${account}`}
               target="_blank"
               rel="noopener noreferrer"
             >

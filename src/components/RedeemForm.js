@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import styled from 'styled-components'
 
 import { useWeb3Context } from 'web3-react'
-import ReCAPTCHA from 'react-google-recaptcha'
 
 // we need to capture the full address into netlify...
 // https://www.netlify.com/blog/2017/07/20/how-to-integrate-netlifys-form-handling-in-a-react-app/
@@ -67,11 +66,8 @@ const addressMapping = [
   { [country]: 'country' }
 ]
 
-const recaptchaEnabled = false
-
 export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, numberBurned: actualNumberBurned }) {
   const { library, account } = useWeb3Context()
-  const [recaptcha, setRecaptcha] = useState()
   const [autoAddress, setAutoAddress] = useState([])
   const [inputY, setInputY] = useState(0)
   const suggestEl = useRef()
@@ -142,12 +138,6 @@ export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, num
     !!formState[zip] &&
     !!formState[country] &&
     !!formState[email]
-
-  function onRecaptcha(value) {
-    if (value) {
-      setRecaptcha(value)
-    }
-  }
 
   return (
     <FormFrame autocomplete="off">
@@ -247,10 +237,9 @@ export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, num
         autoComplete="email"
       />
 
-      {recaptchaEnabled && <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_RECAPTCHA_KEY} onChange={onRecaptcha} />}
       <ButtonFrame
         type="submit"
-        disabled={!canSign || (recaptchaEnabled && !!!recaptcha)}
+        disabled={!canSign}
         onClick={event => {
           const signer = library.getSigner()
           const timestampToSign = Math.round(Date.now() / 1000)
@@ -280,8 +269,7 @@ export default function RedeemForm({ setHasConfirmedAddress, setUserAddress, num
                   [address]: account,
                   [timestamp]: timestampToSign,
                   [numberBurned]: actualNumberBurned,
-                  [signature]: returnedSignature,
-                  ...(recaptchaEnabled ? { 'g-recaptcha-response': recaptcha } : {})
+                  [signature]: returnedSignature
                 }
               })
             })
